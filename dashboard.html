@@ -1038,6 +1038,72 @@
 </main>
 
 <script>
+
+ <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  import { 
+    getAuth,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+  import {
+    getFirestore,
+    doc,
+    getDoc
+  } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+ const firebaseConfig = {
+  apiKey: "AIzaSyDaKGU5Nrtof0lA7GwZN9baIwdpVZaftbQ",
+  authDomain: "the-funded.firebaseapp.com",
+  projectId: "the-funded",
+  storageBucket: "the-funded.firebasestorage.app",
+  messagingSenderId: "656425279116",
+  appId: "1:656425279116:web:d309fc0a731066f28225a9"
+};
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // Check logged in user
+  onAuthStateChanged(auth, async (user) => {
+
+    if (user) {
+
+      console.log("Logged in:", user.uid);
+
+      // Get user document
+      const userRef = doc(db, "users", user.uid);
+
+      const userSnap = await getDoc(userRef);
+
+      if (userSnap.exists()) {
+
+        const data = userSnap.data();
+
+        // UPDATE DASHBOARD VALUES
+        document.getElementById("balance").innerText =
+          "$" + data.balance;
+
+        document.getElementById("profit").innerText =
+          "$" + data.profit;
+
+        document.getElementById("accountType").innerText =
+          data.accountType;
+
+      }
+
+    } else {
+
+      // Redirect if not logged in
+      window.location.href = "login.html";
+
+    }
+
+  });
+ 
   // ── Ticker ──
   const tickers = [
     { sym:'EURUSD', val:'1.0847', chg:'+0.23%', up:true },
