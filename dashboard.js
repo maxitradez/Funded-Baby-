@@ -4,8 +4,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 
 import {
   getAuth,
-  onAuthStateChanged,
-  signOut
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
@@ -15,8 +14,11 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-// ============================================
-// const firebaseConfig = {
+// =====================================
+// YOUR FIREBASE CONFIG
+// =====================================
+
+const firebaseConfig = {
   apiKey: "AIzaSyDaKGU5Nrtof0lA7GwZN9baIwdpVZaftbQ",
   authDomain: "the-funded.firebaseapp.com",
   projectId: "the-funded",
@@ -24,10 +26,10 @@ import {
   messagingSenderId: "656425279116",
   appId: "1:656425279116:web:d309fc0a731066f28225a9"
 };
-// ============================================
-// ============================================
-// INITIALIZE FIREBASE
-// ============================================
+
+// =====================================
+// FIREBASE INIT
+// =====================================
 
 const app = initializeApp(firebaseConfig);
 
@@ -36,137 +38,80 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 
-// ============================================
+// =====================================
 // ELEMENTS
-// ============================================
+// =====================================
 
 const welcomeText = document.getElementById("welcomeText");
 
-const emptyState = document.getElementById("emptyState");
+const accountSize = document.getElementById("accountSize");
 
-const accountsGrid = document.getElementById("accountsGrid");
+const accountPhase = document.getElementById("accountPhase");
 
-const logoutBtn = document.getElementById("logoutBtn");
+const progressPercent = document.getElementById("progressPercent");
+
+const progressCircle = document.getElementById("progressCircle");
+
+const balanceMetric = document.getElementById("balanceMetric");
 
 
-// ============================================
+// =====================================
 // AUTH CHECK
-// ============================================
+// =====================================
 
-onAuthStateChanged(auth, async (user) => {
+onAuthStateChanged(auth, async(user)=>{
 
-  // USER NOT LOGGED IN
-  if (!user) {
+  if(!user){
 
     window.location.href = "login.html";
 
     return;
   }
 
-  // WELCOME MESSAGE
-  welcomeText.innerText = `Welcome, ${user.email}`;
+  welcomeText.innerText = user.email;
 
-  // GET USER DOCUMENT
-  const userRef = doc(db, "users", user.uid);
+  const userRef = doc(db,"users",user.uid);
 
   const userSnap = await getDoc(userRef);
 
-  // NO USER DATA
-  if (!userSnap.exists()) {
-
-    emptyState.style.display = "block";
+  if(!userSnap.exists()){
 
     return;
   }
 
-  const userData = userSnap.data();
+  const data = userSnap.data();
 
-  // NO ACCOUNTS
-  if (!userData.accounts || userData.accounts.length === 0) {
-
-    emptyState.style.display = "block";
+  if(!data.accounts || data.accounts.length === 0){
 
     return;
   }
 
-  // HAS ACCOUNTS
-  emptyState.style.display = "none";
+  const account = data.accounts[0];
 
-  // RENDER ACCOUNTS
-  userData.accounts.forEach(account => {
+  // HERO PANEL
+  accountSize.innerText =
+  `$${account.size.toLocaleString()} Challenge`;
 
-    const progress = account.progress || 0;
+  accountPhase.innerText =
+  `${account.phase} • ${account.status}`;
 
-    const card = document.createElement("div");
+  // METRICS
+  balanceMetric.innerText =
+  `$${account.balance.toLocaleString()}`;
 
-    card.classList.add("account-card");
+  // PROGRESS
+  const progress = account.progress || 0;
 
-    card.innerHTML = `
+  progressPercent.innerText =
+  `${progress}%`;
 
-<div class="account-top">
+  // CIRCLE ANIMATION
+  const circumference = 565;
 
-  <div class="account-size">
-    $${account.size.toLocaleString()}
-  </div>
+  const offset =
+  circumference - (progress / 100) * circumference;
 
-  <div class="account-status">
-    ${account.status}
-  </div>
-
-</div>
-
-<div class="metric-row">
-  <div class="metric-label">Phase</div>
-  <div class="metric-value">${account.phase}</div>
-</div>
-
-<div class="metric-row">
-  <div class="metric-label">Balance</div>
-  <div class="metric-value">
-    $${account.balance.toLocaleString()}
-  </div>
-</div>
-
-<div class="metric-row">
-  <div class="metric-label">Profit Target</div>
-  <div class="metric-value">${progress}%</div>
-</div>
-
-<div class="progress-section">
-
-  <div class="progress-top">
-    <span>Progress</span>
-    <span>${progress}%</span>
-  </div>
-
-  <div class="progress-bar">
-
-    <div 
-      class="progress-fill"
-      style="width:${progress}%">
-    </div>
-
-  </div>
-
-</div>
-
-`;
-
-    accountsGrid.appendChild(card);
-
-  });
-
-});
-
-
-// ============================================
-// LOGOUT
-// ============================================
-
-logoutBtn.addEventListener("click", async () => {
-
-  await signOut(auth);
-
-  window.location.href = "login.html";
+  progressCircle.style.strokeDashoffset =
+  offset;
 
 });
