@@ -1,0 +1,77 @@
+<!-- dashboard.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Funded Baby Dashboard</title>
+
+  <link rel="stylesheet" href="dashboard.css" />
+
+  <script type="module" src="dashboard.js" defer></script>
+</head>
+
+<body>
+
+  <div class="dashboard">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div>
+        <h1 class="logo">Funded Baby</h1>
+
+        <nav class="nav-links">
+          <a href="#">Dashboard</a>
+          <a href="#">Accounts</a>
+          <a href="#">Certificates</a>
+          <a href="#">Leaderboard</a>
+          <a href="#">Settings</a>
+        </nav>
+      </div>
+
+      <button id="logoutBtn">Logout</button>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+      <!-- TOPBAR -->
+      <div class="topbar">
+
+        <div>
+          <h2 id="welcomeText">Welcome Back</h2>
+          <p class="subtitle">Track your funded progress in real time.</p>
+        </div>
+
+      </div>
+
+      <!-- EMPTY STATE -->
+      <section id="emptyState" class="empty-state">
+
+        <h2>No Active Accounts</h2>
+
+        <p>
+          You currently do not have an active challenge account.
+        </p>
+
+        <button class="buy-btn">
+          Buy Challenge
+        </button>
+
+      </section>
+
+      <!-- ACCOUNT GRID -->
+      <section id="accountsGrid" class="accounts-grid"></section>
+
+    </main>
+
+  </div>
+
+</body>
+
+  </html>
