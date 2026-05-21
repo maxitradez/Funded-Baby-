@@ -1,77 +1,130 @@
-<!-- dashboard.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <title>Funded Baby Dashboard</title>
+  <title>Dashboard | Funded Baby</title>
 
-  <link rel="stylesheet" href="dashboard.css" />
+  <link rel="stylesheet" href="dashboard.css"/>
 
   <script type="module" src="dashboard.js" defer></script>
 </head>
 
 <body>
 
-  <div class="dashboard">
+<div class="dashboard">
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div>
+
+      <h1 class="logo">Funded Baby</h1>
+
+      <nav>
+
+        <a class="active" href="#">
+          Dashboard
+        </a>
+
+        <a href="#">
+          Accounts
+        </a>
+
+        <a href="#">
+          Analytics
+        </a>
+
+        <a href="#">
+          Certificates
+        </a>
+
+        <a href="#">
+          Settings
+        </a>
+
+      </nav>
+
+    </div>
+
+    <button id="logoutBtn">
+      Logout
+    </button>
+
+  </aside>
+
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- HEADER -->
+    <header class="header">
 
       <div>
-        <h1 class="logo">Funded Baby</h1>
 
-        <nav class="nav-links">
-          <a href="#">Dashboard</a>
-          <a href="#">Accounts</a>
-          <a href="#">Certificates</a>
-          <a href="#">Leaderboard</a>
-          <a href="#">Settings</a>
-        </nav>
-      </div>
-
-      <button id="logoutBtn">Logout</button>
-
-    </aside>
-
-    <!-- MAIN -->
-    <main class="main-content">
-
-      <!-- TOPBAR -->
-      <div class="topbar">
-
-        <div>
-          <h2 id="welcomeText">Welcome Back</h2>
-          <p class="subtitle">Track your funded progress in real time.</p>
-        </div>
-
-      </div>
-
-      <!-- EMPTY STATE -->
-      <section id="emptyState" class="empty-state">
-
-        <h2>No Active Accounts</h2>
+        <h2 id="welcomeText">
+          Welcome Back
+        </h2>
 
         <p>
-          You currently do not have an active challenge account.
+          Monitor your funded trading accounts.
         </p>
 
-        <button class="buy-btn">
-          Buy Challenge
-        </button>
+      </div>
 
-      </section>
+    </header>
 
-      <!-- ACCOUNT GRID -->
-      <section id="accountsGrid" class="accounts-grid"></section>
 
-    </main>
+    <!-- STATS -->
+    <section class="stats-grid">
 
-  </div>
+      <div class="stat-card">
+        <span>Total Accounts</span>
+        <h3 id="totalAccounts">0</h3>
+      </div>
+
+      <div class="stat-card">
+        <span>Total Balance</span>
+        <h3 id="totalBalance">$0</h3>
+      </div>
+
+      <div class="stat-card">
+        <span>Average Progress</span>
+        <h3 id="avgProgress">0%</h3>
+      </div>
+
+      <div class="stat-card">
+        <span>Active Challenges</span>
+        <h3 id="activeChallenges">0</h3>
+      </div>
+
+    </section>
+
+
+    <!-- EMPTY STATE -->
+    <section id="emptyState" class="empty-state">
+
+      <h2>No Active Accounts</h2>
+
+      <p>
+        Purchase your first challenge account to begin trading.
+      </p>
+
+      <button>
+        Buy Challenge
+      </button>
+
+    </section>
+
+
+    <!-- ACCOUNTS -->
+    <section id="accountsGrid" class="accounts-grid"></section>
+
+  </main>
+
+</div>
 
 </body>
-
   </html>
