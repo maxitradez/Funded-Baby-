@@ -16,26 +16,15 @@ import {
 
 
 // ============================================
-// PASTE YOUR FIREBASE CONFIG HERE
-// ============================================
-
-const firebaseConfig = {
-
-  apiKey: "YOUR_API_KEY",
-
-  authDomain: "YOUR_AUTH_DOMAIN",
-
-  projectId: "YOUR_PROJECT_ID",
-
-  storageBucket: "YOUR_STORAGE_BUCKET",
-
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-
-  appId: "YOUR_APP_ID"
-
+// const firebaseConfig = {
+  apiKey: "AIzaSyDaKGU5Nrtof0lA7GwZN9baIwdpVZaftbQ",
+  authDomain: "the-funded.firebaseapp.com",
+  projectId: "the-funded",
+  storageBucket: "the-funded.firebasestorage.app",
+  messagingSenderId: "656425279116",
+  appId: "1:656425279116:web:d309fc0a731066f28225a9"
 };
-
-
+// ============================================
 // ============================================
 // INITIALIZE FIREBASE
 // ============================================
