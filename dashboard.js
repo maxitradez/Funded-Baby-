@@ -103,51 +103,54 @@ onAuthStateChanged(auth, async (user) => {
 
     card.innerHTML = `
 
-      <h2 class="account-title">
-        $${account.size.toLocaleString()} Challenge
-      </h2>
+<div class="account-top">
 
-      <div class="metric">
-        <div class="metric-label">Status</div>
-        <div class="metric-value">${account.status}</div>
-      </div>
+  <div class="account-size">
+    $${account.size.toLocaleString()}
+  </div>
 
-      <div class="metric">
-        <div class="metric-label">Phase</div>
-        <div class="metric-value">${account.phase}</div>
-      </div>
+  <div class="account-status">
+    ${account.status}
+  </div>
 
-      <div class="metric">
-        <div class="metric-label">Balance</div>
-        <div class="metric-value">
-          $${account.balance.toLocaleString()}
-        </div>
-      </div>
+</div>
 
-      <div class="metric">
-        <div class="metric-label">Profit Target</div>
-        <div class="metric-value">${progress}%</div>
-      </div>
+<div class="metric-row">
+  <div class="metric-label">Phase</div>
+  <div class="metric-value">${account.phase}</div>
+</div>
 
-      <div class="progress-wrapper">
+<div class="metric-row">
+  <div class="metric-label">Balance</div>
+  <div class="metric-value">
+    $${account.balance.toLocaleString()}
+  </div>
+</div>
 
-        <div class="progress-header">
-          <span>Progress</span>
-          <span>${progress}%</span>
-        </div>
+<div class="metric-row">
+  <div class="metric-label">Profit Target</div>
+  <div class="metric-value">${progress}%</div>
+</div>
 
-        <div class="progress-bar">
+<div class="progress-section">
 
-          <div 
-            class="progress-fill"
-            style="width:${progress}%">
-          </div>
+  <div class="progress-top">
+    <span>Progress</span>
+    <span>${progress}%</span>
+  </div>
 
-        </div>
+  <div class="progress-bar">
 
-      </div>
+    <div 
+      class="progress-fill"
+      style="width:${progress}%">
+    </div>
 
-    `;
+  </div>
+
+</div>
+
+`;
 
     accountsGrid.appendChild(card);
 
