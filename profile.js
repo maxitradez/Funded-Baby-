@@ -18,9 +18,12 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 // FIREBASE CONFIG
 
 const firebaseConfig = {
-
-// YOUR CONFIG HERE
-
+  apiKey: "AIzaSyDaKGU5Nrtof0lA7GwZN9baIwdpVZaftbQ",
+  authDomain: "the-funded.firebaseapp.com",
+  projectId: "the-funded",
+  storageBucket: "the-funded.firebasestorage.app",
+  messagingSenderId: "656425279116",
+  appId: "1:656425279116:web:d309fc0a731066f28225a9"
 };
 
 
