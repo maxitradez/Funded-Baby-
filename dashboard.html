@@ -1,130 +1,250 @@
+<!-- dashboard.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <title>Dashboard | Funded Baby</title>
+  <title>Funded Baby Dashboard</title>
 
   <link rel="stylesheet" href="dashboard.css"/>
 
   <script type="module" src="dashboard.js" defer></script>
+
 </head>
 
 <body>
 
-<div class="dashboard">
+  <!-- BACKGROUND GLOW -->
+  <div class="bg-glow"></div>
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
+  <!-- TOP NAV -->
+  <header class="topnav">
 
-    <div>
+    <div class="logo-area">
 
-      <h1 class="logo">Funded Baby</h1>
+      <div class="logo-box">M</div>
 
-      <nav>
-
-        <a class="active" href="#">
-          Dashboard
-        </a>
-
-        <a href="#">
-          Accounts
-        </a>
-
-        <a href="#">
-          Analytics
-        </a>
-
-        <a href="#">
-          Certificates
-        </a>
-
-        <a href="#">
-          Settings
-        </a>
-
-      </nav>
+      <div class="logo-text">
+        Funded Baby
+      </div>
 
     </div>
 
-    <button id="logoutBtn">
-      Logout
-    </button>
 
-  </aside>
+    <div class="market-ticker">
+
+      <span>BTCUSD <strong>67,420</strong> ▲2.14%</span>
+
+      <span>NAS100 <strong>18,342</strong> ▲0.56%</span>
+
+      <span>XAUUSD <strong>2,412</strong> ▼0.12%</span>
+
+    </div>
+
+
+    <div class="profile-area">
+
+      <div class="profile-info">
+
+        <small>Trader</small>
+
+        <h4 id="welcomeText">
+          Loading...
+        </h4>
+
+      </div>
+
+      <div class="profile-avatar">
+        M
+      </div>
+
+    </div>
+
+  </header>
 
 
   <!-- MAIN -->
   <main class="main">
 
-    <!-- HEADER -->
-    <header class="header">
 
-      <div>
+    <!-- HERO PANEL -->
+    <section id="heroPanel" class="hero-panel">
 
-        <h2 id="welcomeText">
-          Welcome Back
-        </h2>
+      <div class="hero-left">
 
-        <p>
-          Monitor your funded trading accounts.
+        <small>ACTIVE CHALLENGE</small>
+
+        <h1 id="accountSize">
+          No Active Account
+        </h1>
+
+        <p id="accountPhase">
+          Purchase a challenge to begin your journey.
         </p>
 
+        <button class="challenge-btn">
+          Buy Challenge
+        </button>
+
       </div>
 
-    </header>
 
+      <div class="hero-right">
 
-    <!-- STATS -->
-    <section class="stats-grid">
+        <div class="progress-ring">
 
-      <div class="stat-card">
-        <span>Total Accounts</span>
-        <h3 id="totalAccounts">0</h3>
-      </div>
+          <svg width="220" height="220">
 
-      <div class="stat-card">
-        <span>Total Balance</span>
-        <h3 id="totalBalance">$0</h3>
-      </div>
+            <circle
+              class="bg-circle"
+              cx="110"
+              cy="110"
+              r="90"
+            />
 
-      <div class="stat-card">
-        <span>Average Progress</span>
-        <h3 id="avgProgress">0%</h3>
-      </div>
+            <circle
+              id="progressCircle"
+              class="progress-circle"
+              cx="110"
+              cy="110"
+              r="90"
+            />
 
-      <div class="stat-card">
-        <span>Active Challenges</span>
-        <h3 id="activeChallenges">0</h3>
+          </svg>
+
+          <div class="progress-text">
+
+            <h2 id="progressPercent">
+              0%
+            </h2>
+
+            <span>Completed</span>
+
+          </div>
+
+        </div>
+
       </div>
 
     </section>
 
 
-    <!-- EMPTY STATE -->
-    <section id="emptyState" class="empty-state">
+    <!-- METRICS -->
+    <section class="metrics-grid">
 
-      <h2>No Active Accounts</h2>
+      <div class="metric-card">
 
-      <p>
-        Purchase your first challenge account to begin trading.
-      </p>
+        <span>Balance</span>
 
-      <button>
-        Buy Challenge
-      </button>
+        <h2 id="balanceMetric">
+          $0
+        </h2>
+
+      </div>
+
+      <div class="metric-card">
+
+        <span>Profit Target</span>
+
+        <h2 id="targetMetric">
+          8%
+        </h2>
+
+      </div>
+
+      <div class="metric-card">
+
+        <span>Daily Drawdown</span>
+
+        <h2 id="drawdownMetric">
+          5%
+        </h2>
+
+      </div>
+
+      <div class="metric-card">
+
+        <span>Trading Days</span>
+
+        <h2 id="daysMetric">
+          0
+        </h2>
+
+      </div>
 
     </section>
 
 
-    <!-- ACCOUNTS -->
-    <section id="accountsGrid" class="accounts-grid"></section>
+    <!-- TIMELINE -->
+    <section class="timeline-section">
+
+      <h2>Challenge Progress</h2>
+
+      <div class="timeline">
+
+        <div class="timeline-step active">
+          <div class="dot"></div>
+          <span>Purchased</span>
+        </div>
+
+        <div class="timeline-line"></div>
+
+        <div class="timeline-step">
+          <div class="dot"></div>
+          <span>Phase 1</span>
+        </div>
+
+        <div class="timeline-line"></div>
+
+        <div class="timeline-step">
+          <div class="dot"></div>
+          <span>Verification</span>
+        </div>
+
+        <div class="timeline-line"></div>
+
+        <div class="timeline-step">
+          <div class="dot"></div>
+          <span>Funded</span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ACTIVITY -->
+    <section class="activity-panel">
+
+      <div class="activity-header">
+
+        <h2>Recent Activity</h2>
+
+      </div>
+
+      <div class="activity-feed">
+
+        <div class="activity-item">
+          <span>Challenge account created</span>
+          <small>Today</small>
+        </div>
+
+        <div class="activity-item">
+          <span>Dashboard initialized</span>
+          <small>Today</small>
+        </div>
+
+      </div>
+
+    </section>
 
   </main>
 
-</div>
-
 </body>
-  </html>
+
+      </html>
