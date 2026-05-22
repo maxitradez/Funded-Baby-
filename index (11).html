@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Funded Baby – Trade Bold. Get Funded. Keep the Edge.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E4C76B;
+  --gold-dark: #A8882E;
+  --gold-dim: rgba(201,168,76,0.12);
+  --gold-glow: rgba(201,168,76,0.22);
+  --black: #080808;
+  --dark: #0d0d0d;
+  --darker: #0a0a0a;
+  --card: #111111;
+  --card2: #161616;
+  --border: rgba(201,168,76,0.2);
+  --border2: rgba(255,255,255,0.07);
+  --text: #F0EAD6;
+  --muted: #7a7060;
+  --green: #4ade80;
+  --red: #f87171;
+  --radius: 12px;
+  --radius-lg: 18px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter',sans-serif; background:var(--black); color:var(--text); overflow-x:hidden; line-height:1.6; }
+h1,h2,h3,h4 { font-family:'Playfair Display',serif; }
+a { color:inherit; text-decoration:none; }
+
+/* TICKER */
+.ticker-wrap { background:#070707; border-bottom:1px solid var(--border); padding:9px 0; overflow:hidden; }
+.ticker { display:flex; gap:48px; animation:ticker 32s linear infinite; white-space:nowrap; width:max-content; }
+.ticker span { font-size:12px; letter-spacing:.04em; color:var(--muted); }
+.ticker span b { color:var(--text); font-weight:500; margin-right:4px; }
+.ticker span.up em { color:var(--green); font-style:normal; }
+.ticker span.dn em { color:var(--red); font-style:normal; }
+@keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+/* NAV */
+nav {
+  position:sticky; top:0; z-index:100;
+  background:rgba(8,8,8,0.96);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border2);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 5%;
+  height:66px;
+}
+.logo { font-family:'Playfair Display',serif; font-size:20px; font-weight:800; letter-spacing:-.01em; display:flex; align-items:center; gap:10px; color:var(--text); }
+.logo-mark { width:32px; height:32px; background:var(--gold); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:14px; color:#080808; font-weight:800; font-family:'Inter',sans-serif; }
+.nav-links { display:flex; gap:32px; list-style:none; }
+.nav-links a { font-size:14px; color:var(--muted); transition:color .2s; font-family:'Inter',sans-serif; font-weight:500; }
+.nav-links a:hover { color:var(--text); }
+.nav-cta { display:flex; gap:10px; }
+.btn { cursor:pointer; font-family:'Inter',sans-serif; border:none; border-radius:8px; font-size:14px; font-weight:500; padding:10px 20px; transition:all .2s; display:inline-flex; align-items:center; gap:6px; }
+.btn-ghost { background:transparent; color:var(--text); border:1px solid var(--border2); }
+.btn-ghost:hover { border-color:var(--gold); color:var(--gold-light); }
+.btn-primary { background:var(--gold); color:#080808; font-weight:600; }
+.btn-primary:hover { background:var(--gold-light); transform:translateY(-1px); box-shadow:0 6px 24px var(--gold-glow); }
+.btn-primary:active { transform:translateY(0); }
+.btn-outline-gold { background:transparent; color:var(--gold-light); border:1px solid var(--gold); }
+.btn-outline-gold:hover { background:var(--gold); color:#080808; }
+.hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
+.hamburger span { width:22px; height:2px; background:var(--text); border-radius:2px; transition:all .3s; }
+
+/* HERO */
+.hero { min-height:92vh; display:flex; align-items:center; padding:80px 5% 60px; position:relative; overflow:hidden; }
+.hero::before { content:''; position:absolute; top:-30%; left:50%; transform:translateX(-50%); width:900px; height:900px; background:radial-gradient(ellipse,rgba(201,168,76,0.06) 0%,transparent 70%); pointer-events:none; }
+.hero-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; width:100%; max-width:1200px; margin:0 auto; position:relative; }
+.hero-badge { display:inline-flex; align-items:center; gap:8px; background:var(--gold-dim); border:1px solid rgba(201,168,76,0.28); border-radius:20px; padding:6px 16px; font-size:12px; color:var(--gold-light); letter-spacing:.06em; text-transform:uppercase; margin-bottom:28px; font-family:'Inter',sans-serif; font-weight:500; }
+.hero-badge::before { content:''; width:6px; height:6px; background:var(--gold-light); border-radius:50%; animation:pulse 1.8s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.4)} }
+.hero h1 { font-size:clamp(36px,5vw,62px); font-weight:800; line-height:1.05; letter-spacing:-.02em; margin-bottom:24px; }
+.hero h1 .accent { color:var(--gold-light); }
+.hero p { font-size:17px; color:var(--muted); max-width:480px; margin-bottom:40px; line-height:1.75; font-weight:400; }
+.hero p strong { color:var(--text); font-weight:600; }
+.hero-actions { display:flex; gap:12px; flex-wrap:wrap; }
+.hero-stats { display:flex; gap:36px; margin-top:52px; flex-wrap:wrap; padding-top:32px; border-top:1px solid var(--border2); }
+.hstat .val { font-family:'Playfair Display',serif; font-size:28px; font-weight:700; color:var(--text); }
+.hstat .lbl { font-size:12px; color:var(--muted); margin-top:4px; letter-spacing:.03em; font-weight:500; }
+
+/* Live card */
+.live-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius-lg); padding:28px; position:relative; overflow:hidden; }
+.live-card::after { content:''; position:absolute; top:-50%; right:-30%; width:300px; height:300px; background:radial-gradient(circle,rgba(201,168,76,0.05) 0%,transparent 70%); pointer-events:none; }
+.live-tag { display:inline-flex; align-items:center; gap:6px; background:rgba(74,222,128,0.08); border:1px solid rgba(74,222,128,0.2); border-radius:6px; padding:4px 10px; font-size:11px; color:var(--green); margin-bottom:16px; letter-spacing:.06em; text-transform:uppercase; font-family:'Inter',sans-serif; font-weight:500; }
+.live-tag::before { content:''; width:6px; height:6px; background:var(--green); border-radius:50%; animation:pulse 2s ease-in-out infinite; }
+.live-balance { font-family:'Playfair Display',serif; font-size:38px; font-weight:700; color:var(--text); margin-bottom:4px; }
+.live-change { font-size:14px; color:var(--green); margin-bottom:24px; font-weight:500; }
+.live-stats { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.live-stat { background:var(--card2); border-radius:10px; padding:14px; border:1px solid var(--border2); }
+.live-stat .ls-label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px; font-weight:600; }
+.live-stat .ls-val { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; }
+.live-stat .ls-bar { height:4px; background:rgba(255,255,255,0.06); border-radius:2px; margin-top:8px; overflow:hidden; }
+.live-stat .ls-fill { height:100%; border-radius:2px; background:var(--gold); transition:width 1s ease; }
+.ls-fill.danger { background:var(--red); }
+
+/* SECTIONS */
+section { padding:96px 5%; }
+.section-inner { max-width:1200px; margin:0 auto; }
+.section-tag { font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--gold-light); margin-bottom:14px; font-weight:600; font-family:'Inter',sans-serif; }
+.section-title { font-size:clamp(28px,3.5vw,44px); font-weight:800; letter-spacing:-.01em; line-height:1.1; margin-bottom:16px; }
+.section-sub { font-size:16px; color:var(--muted); max-width:560px; font-weight:400; line-height:1.7; }
+.section-header { margin-bottom:56px; }
+.section-header.center { text-align:center; }
+.section-header.center .section-sub { margin:0 auto; }
+
+/* PROGRAMS */
+.programs-bg { background:var(--darker); }
+.plans-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.plan-card { background:var(--card); border:1px solid var(--border2); border-radius:var(--radius-lg); padding:32px 28px; position:relative; transition:border-color .3s,transform .3s; display:flex; flex-direction:column; }
+.plan-card:hover { border-color:rgba(201,168,76,0.35); transform:translateY(-4px); }
+.plan-card.featured { border-color:var(--gold); background:linear-gradient(145deg,#111009,#140f07); }
+.plan-featured-badge { position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--gold); color:#080808; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:4px 14px; border-radius:20px; white-space:nowrap; font-family:'Inter',sans-serif; }
+.plan-icon { font-size:28px; margin-bottom:16px; }
+.plan-name { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; margin-bottom:6px; }
+.plan-desc { font-size:13px; color:var(--muted); margin-bottom:20px; line-height:1.6; font-weight:400; }
+.plan-sizes { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:24px; }
+.plan-size { font-size:12px; padding:5px 12px; border:1px solid var(--border2); border-radius:6px; color:var(--muted); cursor:pointer; transition:all .2s; font-family:'Inter',sans-serif; font-weight:500; }
+.plan-size:hover,.plan-size.active { border-color:var(--gold); color:var(--gold-light); background:var(--gold-dim); }
+.plan-rules { list-style:none; margin-bottom:28px; display:flex; flex-direction:column; gap:12px; }
+.plan-rules li { display:flex; justify-content:space-between; font-size:13px; padding-bottom:12px; border-bottom:1px solid var(--border2); }
+.plan-rules li:last-child { border-bottom:none; }
+.plan-rules li span:first-child { color:var(--muted); font-weight:400; }
+.plan-rules li span:last-child { font-weight:600; }
+.plan-price { font-family:'Inter',sans-serif; font-size:13px; color:var(--muted); margin-bottom:16px; font-weight:400; }
+.plan-price strong { font-family:'Playfair Display',serif; font-size:32px; color:var(--text); margin-right:2px; }
+.plan-card .btn { width:100%; justify-content:center; margin-top:auto; }
+
+/* HOW IT WORKS */
+.steps { display:grid; grid-template-columns:repeat(4,1fr); gap:28px; position:relative; }
+.steps::before { content:''; position:absolute; top:36px; left:10%; right:10%; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); opacity:.4; }
+.step { text-align:center; }
+.step-num { width:72px; height:72px; border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:var(--gold-light); margin:0 auto 20px; background:var(--card); position:relative; z-index:1; }
+.step h3 { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; margin-bottom:8px; }
+.step p { font-size:13px; color:var(--muted); line-height:1.7; font-weight:400; }
+
+/* WHY US */
+.why-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.why-card { background:var(--card); border:1px solid var(--border2); border-radius:var(--radius-lg); padding:28px 24px; transition:border-color .3s; }
+.why-card:hover { border-color:rgba(201,168,76,0.28); }
+.why-icon { width:48px; height:48px; background:var(--gold-dim); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; margin-bottom:16px; }
+.why-card h3 { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; margin-bottom:8px; }
+.why-card p { font-size:13px; color:var(--muted); line-height:1.7; font-weight:400; }
+
+/* TESTIMONIALS */
+.testi-bg { background:var(--darker); }
+.testi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.testi-card { background:var(--card); border:1px solid var(--border2); border-radius:var(--radius-lg); padding:28px; }
+.stars { color:var(--gold-light); font-size:14px; letter-spacing:2px; margin-bottom:16px; }
+.testi-quote { font-size:14px; color:var(--text); line-height:1.75; margin-bottom:20px; font-style:italic; font-weight:400; }
+.testi-author { display:flex; align-items:center; gap:12px; }
+.testi-avatar { width:40px; height:40px; border-radius:50%; background:var(--gold-dark); display:flex; align-items:center; justify-content:center; font-family:'Inter',sans-serif; font-size:13px; font-weight:700; color:#080808; flex-shrink:0; }
+.testi-name { font-size:14px; font-weight:600; font-family:'Inter',sans-serif; }
+.testi-role { font-size:12px; color:var(--muted); font-weight:400; }
+
+/* CTA BANNER */
+.cta-section { background:linear-gradient(135deg,#0a0800,#0f0c00); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.cta-inner { max-width:700px; margin:0 auto; text-align:center; }
+.cta-inner h2 { font-size:clamp(28px,4vw,48px); font-weight:800; letter-spacing:-.01em; margin-bottom:16px; }
+.cta-inner h2 span { color:var(--gold-light); }
+.cta-inner p { font-size:16px; color:var(--muted); margin-bottom:36px; font-weight:400; }
+.cta-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+/* CONTACT */
+.contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+.contact-card { background:var(--card); border:1px solid var(--border2); border-radius:var(--radius-lg); padding:28px; display:flex; align-items:center; gap:16px; margin-bottom:16px; color:var(--text); transition:border-color .3s,transform .2s; }
+.contact-card:hover { border-color:var(--gold); transform:translateX(4px); }
+.contact-icon { width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0; }
+.contact-icon.wa { background:rgba(37,211,102,0.1); }
+.contact-icon.ig { background:rgba(225,48,108,0.1); }
+.contact-label { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px; font-weight:600; font-family:'Inter',sans-serif; }
+.contact-val { font-size:16px; font-weight:600; font-family:'Inter',sans-serif; }
+.contact-form-wrap { background:var(--card); border:1px solid var(--border2); border-radius:var(--radius-lg); padding:36px; }
+.form-group { margin-bottom:20px; }
+.form-group label { display:block; font-size:12px; color:var(--muted); margin-bottom:8px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; font-family:'Inter',sans-serif; }
+.form-group input,.form-group select,.form-group textarea { width:100%; background:var(--card2); border:1px solid var(--border2); border-radius:8px; color:var(--text); font-family:'Inter',sans-serif; font-size:14px; padding:12px 16px; outline:none; transition:border-color .2s; resize:vertical; font-weight:400; }
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus { border-color:var(--gold); }
+.form-group input::placeholder,.form-group textarea::placeholder { color:var(--muted); }
+.form-group select option { background:var(--card2); }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+/* FOOTER */
+footer { background:var(--darker); border-top:1px solid var(--border2); padding:60px 5% 30px; }
+.footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; max-width:1200px; margin:0 auto 48px; }
+.footer-brand p { font-size:13px; color:var(--muted); line-height:1.7; margin-top:12px; max-width:280px; font-weight:400; }
+.footer-col h4 { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; margin-bottom:16px; color:var(--text); font-family:'Inter',sans-serif; }
+.footer-col ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
+.footer-col ul a { font-size:13px; color:var(--muted); transition:color .2s; font-weight:400; }
+.footer-col ul a:hover { color:var(--gold-light); }
+.footer-bottom { max-width:1200px; margin:0 auto; padding-top:24px; border-top:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+.footer-bottom p { font-size:12px; color:var(--muted); font-weight:400; }
+.footer-social { display:flex; gap:12px; }
+.social-link { width:36px; height:36px; border:1px solid var(--border2); border-radius:8px; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:16px; transition:all .2s; }
+.social-link:hover { border-color:var(--gold); color:var(--gold-light); }
+
+/* MODAL */
+.modal-overlay { position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.9); backdrop-filter:blur(8px); display:none; align-items:center; justify-content:center; padding:20px; }
+.modal-overlay.open { display:flex; }
+.modal { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:40px; width:100%; max-width:480px; position:relative; animation:slideUp .3s ease; }
+@keyframes slideUp { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
+.modal-close { position:absolute; top:16px; right:16px; width:32px; height:32px; border-radius:8px; border:1px solid var(--border2); background:transparent; color:var(--muted); cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center; transition:all .2s; font-family:'Inter',sans-serif; }
+.modal-close:hover { border-color:var(--gold); color:var(--gold-light); }
+.modal h2 { font-size:24px; font-weight:800; margin-bottom:6px; }
+.modal .modal-sub { font-size:14px; color:var(--muted); margin-bottom:28px; font-weight:400; }
+.modal-tabs { display:flex; gap:0; background:var(--card2); border-radius:10px; padding:4px; margin-bottom:24px; }
+.mtab { flex:1; padding:8px; text-align:center; font-size:13px; font-weight:500; cursor:pointer; border-radius:7px; transition:all .2s; color:var(--muted); border:none; background:transparent; font-family:'Inter',sans-serif; }
+.mtab.active { background:var(--gold); color:#080808; font-weight:600; }
+.tab-content { display:none; }
+.tab-content.active { display:block; }
+.modal-success { text-align:center; padding:20px 0; display:none; }
+.modal-success .success-icon { font-size:48px; margin-bottom:16px; }
+.modal-success h3 { font-size:20px; font-weight:700; margin-bottom:8px; }
+.modal-success p { font-size:14px; color:var(--muted); font-weight:400; }
+.pay-step { margin-bottom:20px; }
+.pay-step-title { font-size:13px; font-weight:600; color:var(--gold-light); margin-bottom:8px; display:flex; align-items:center; gap:8px; font-family:'Inter',sans-serif; }
+.pay-step-title span { width:22px; height:22px; background:var(--gold-dim); border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:11px; }
+.mpesa-info { background:var(--card2); border-radius:10px; padding:16px; font-size:13px; color:var(--muted); line-height:1.8; border:1px solid var(--border2); font-weight:400; }
+.mpesa-info b { color:var(--text); font-weight:600; }
+.copy-btn { background:var(--gold-dim); border:1px solid rgba(201,168,76,0.28); color:var(--gold-light); font-size:12px; padding:4px 10px; border-radius:6px; cursor:pointer; font-family:'Inter',sans-serif; transition:all .2s; margin-left:8px; font-weight:500; }
+.copy-btn:hover { background:rgba(201,168,76,0.22); }
+.terms-check { display:flex; align-items:flex-start; gap:10px; font-size:12px; color:var(--muted); margin-bottom:20px; font-weight:400; }
+.terms-check input { margin-top:2px; accent-color:var(--gold); }
+.divider { height:1px; background:var(--border2); margin:20px 0; }
+.social-login { display:flex; gap:10px; }
+.social-login button { flex:1; background:var(--card2); border:1px solid var(--border2); color:var(--text); font-family:'Inter',sans-serif; font-size:13px; padding:10px; border-radius:8px; cursor:pointer; transition:border-color .2s; font-weight:400; }
+.social-login button:hover { border-color:var(--gold); }
+.plan-selector { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
+.plan-option { background:var(--card2); border:1px solid var(--border2); border-radius:10px; padding:14px; cursor:pointer; transition:all .2s; }
+.plan-option.selected { border-color:var(--gold); background:var(--gold-dim); }
+.plan-option h4 { font-size:14px; font-weight:600; margin-bottom:2px; font-family:'Inter',sans-serif; }
+.plan-option p { font-size:11px; color:var(--muted); font-weight:400; }
+.plan-option .price { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--gold-light); margin-top:6px; }
+.size-selector { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+.size-opt { background:var(--card2); border:1px solid var(--border2); border-radius:8px; padding:8px 14px; cursor:pointer; font-size:13px; transition:all .2s; font-family:'Inter',sans-serif; font-weight:500; }
+.size-opt.selected { border-color:var(--gold); color:var(--gold-light); background:var(--gold-dim); }
+.pay-method-tabs { display:flex; gap:6px; margin-bottom:20px; }
+.pmt-btn { flex:1; padding:9px; border-radius:8px; border:1px solid var(--border2); background:transparent; color:var(--muted); font-family:'Inter',sans-serif; font-size:13px; cursor:pointer; transition:all .2s; font-weight:500; }
+.pmt-btn.active { border-color:var(--gold); color:var(--gold-light); background:var(--gold-dim); }
+.pay-method { display:none; }
+.pay-method.active { display:block; }
+
+/* NOTIFICATION */
+.notif { position:fixed; bottom:24px; right:24px; z-index:9999; background:var(--card); border:1px solid var(--gold); border-radius:12px; padding:14px 20px; font-size:14px; color:var(--text); transform:translateY(80px); opacity:0; transition:all .35s ease; max-width:300px; font-family:'Inter',sans-serif; font-weight:400; }
+.notif.show { transform:translateY(0); opacity:1; }
+.notif.error { border-color:var(--red); }
+
+/* MOBILE NAV */
+.mobile-nav { position:fixed; inset:0; z-index:200; background:var(--black); padding:90px 5% 40px; transform:translateX(100%); transition:transform .3s ease; display:flex; flex-direction:column; gap:20px; border-left:1px solid var(--border); }
+.mobile-nav.open { transform:translateX(0); }
+.mobile-nav a { font-family:'Playfair Display',serif; font-size:26px; font-weight:700; color:var(--text); display:block; }
+.mobile-nav a:hover { color:var(--gold-light); }
+.mobile-nav-actions { margin-top:auto; display:flex; flex-direction:column; gap:12px; }
+
+/* RESPONSIVE */
+@media(max-width:900px) {
+  .hero-grid { grid-template-columns:1fr; }
+  .live-card { display:none; }
+  .plans-grid { grid-template-columns:1fr; max-width:480px; margin:0 auto; }
+  .steps { grid-template-columns:repeat(2,1fr); }
+  .steps::before { display:none; }
+  .why-grid { grid-template-columns:1fr 1fr; }
+  .testi-grid { grid-template-columns:1fr; }
+  .contact-grid { grid-template-columns:1fr; }
+  .footer-grid { grid-template-columns:1fr 1fr; }
+  .nav-links { display:none; }
+  .hamburger { display:flex; }
+  .plan-selector { grid-template-columns:1fr; }
+  .form-row { grid-template-columns:1fr; }
+}
+@media(max-width:600px) {
+  .why-grid { grid-template-columns:1fr; }
+  .steps { grid-template-columns:1fr; }
+  .hero-stats { gap:20px; }
+  .footer-grid { grid-template-columns:1fr; }
+  .modal { padding:28px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker" id="tickerTrack">
+    <span class="up"><b>EURUSD</b>1.0847 <em>▲ +0.23%</em></span>
+    <span class="dn"><b>GBPUSD</b>1.2634 <em>▼ -0.11%</em></span>
+    <span class="up"><b>XAUUSD</b>2,341.50 <em>▲ +0.87%</em></span>
+    <span class="dn"><b>USDJPY</b>149.32 <em>▼ -0.18%</em></span>
+    <span class="up"><b>BTCUSD</b>67,420 <em>▲ +2.14%</em></span>
+    <span class="up"><b>NAS100</b>18,342 <em>▲ +0.56%</em></span>
+    <span class="dn"><b>USDCAD</b>1.3621 <em>▼ -0.08%</em></span>
+    <span class="up"><b>AUDUSD</b>0.6598 <em>▲ +0.31%</em></span>
+    <span class="up"><b>EURUSD</b>1.0847 <em>▲ +0.23%</em></span>
+    <span class="dn"><b>GBPUSD</b>1.2634 <em>▼ -0.11%</em></span>
+    <span class="up"><b>XAUUSD</b>2,341.50 <em>▲ +0.87%</em></span>
+    <span class="dn"><b>USDJPY</b>149.32 <em>▼ -0.18%</em></span>
+    <span class="up"><b>BTCUSD</b>67,420 <em>▲ +2.14%</em></span>
+    <span class="up"><b>NAS100</b>18,342 <em>▲ +0.56%</em></span>
+    <span class="dn"><b>USDCAD</b>1.3621 <em>▼ -0.08%</em></span>
+    <span class="up"><b>AUDUSD</b>0.6598 <em>▲ +0.31%</em></span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">
+    <div class="logo-mark">F</div>
+    Funded Baby
+  </a>
+  <ul class="nav-links">
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#stories">Stories</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-cta" id="navCta">
+    <a href="login.html" class="btn btn-ghost" id="navLogin">Log In</a>
+    <a href="signup.html" class="btn btn-primary" id="navSignup">Get Funded →</a>
+    <a href="dashboard.html" class="btn btn-ghost" id="navDashboard" style="display:none">Dashboard</a>
+    <a href="profile.html" class="btn btn-primary" id="navProfile" style="display:none">My Profile →</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#programs" onclick="closeMobileNav()">Programs</a>
+  <a href="#how" onclick="closeMobileNav()">How It Works</a>
+  <a href="#why" onclick="closeMobileNav()">Why Us</a>
+  <a href="#stories" onclick="closeMobileNav()">Stories</a>
+  <a href="#contact" onclick="closeMobileNav()">Contact</a>
+  <div class="mobile-nav-actions">
+    <a href="login.html" class="btn btn-ghost" id="mNavLogin" style="width:100%;justify-content:center">Log In</a>
+    <a href="signup.html" class="btn btn-primary" id="mNavSignup" style="width:100%;justify-content:center">Get Funded →</a>
+    <a href="dashboard.html" class="btn btn-ghost" id="mNavDashboard" style="width:100%;justify-content:center;display:none">Dashboard</a>
+    <a href="profile.html" class="btn btn-primary" id="mNavProfile" style="width:100%;justify-content:center;display:none">My Profile →</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-badge">Trade with us &nbsp;·&nbsp; Grow with us</div>
+      <h1>Trade Bold.<br>Get <span class="accent">Funded.</span><br>Keep the Edge.</h1>
+      <p>Pass our elite challenge and unlock up to <strong>$200,000</strong> in live funded capital. Keep up to 90% of your profits. No tricks. Just pure performance.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" style="font-size:15px;padding:13px 28px" onclick="openModal('pay')">Start Your Challenge →</button>
+        <a href="#how" class="btn btn-ghost">How It Works</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><div class="val">2,400+</div><div class="lbl">Funded Traders</div></div>
+        <div class="hstat"><div class="val">$4.2M+</div><div class="lbl">Paid Out</div></div>
+        <div class="hstat"><div class="val">90%</div><div class="lbl">Profit Split</div></div>
+        <div class="hstat"><div class="val">48h</div><div class="lbl">Avg Payout</div></div>
+      </div>
+    </div>
+
+    <div class="live-card">
+      <div class="live-tag">Live Account — $100K</div>
+      <div class="live-balance" id="liveBalance">$112,840.00</div>
+      <div class="live-change" id="liveChange">▲ +$12,840 (+12.84%) this month</div>
+      <div class="live-stats">
+        <div class="live-stat">
+          <div class="ls-label">Daily DD</div>
+          <div class="ls-val" style="color:var(--green)">2.1%</div>
+          <div class="ls-bar"><div class="ls-fill" style="width:42%"></div></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">Limit: 5%</div>
+        </div>
+        <div class="live-stat">
+          <div class="ls-label">Max DD</div>
+          <div class="ls-val" style="color:var(--gold-light)">6.4%</div>
+          <div class="ls-bar"><div class="ls-fill danger" style="width:53%"></div></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">Limit: 12%</div>
+        </div>
+        <div class="live-stat">
+          <div class="ls-label">Win Rate</div>
+          <div class="ls-val">67%</div>
+          <div class="ls-bar"><div class="ls-fill" style="width:67%"></div></div>
+        </div>
+        <div class="live-stat">
+          <div class="ls-label">Trading Days</div>
+          <div class="ls-val">18</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:10px">Next payout: 12 days</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section class="programs-bg" id="programs">
+  <div class="section-inner">
+    <div class="section-header center">
+      <div class="section-tag">Programs</div>
+      <h2 class="section-title">Choose Your Path to Funding</h2>
+      <p class="section-sub">Three distinct tracks built for different trading styles. Pick your size, prove your edge, trade live capital.</p>
+    </div>
+    <div class="plans-grid">
+
+      <!-- Accelerator -->
+      <div class="plan-card">
+        <div class="plan-icon">⚡</div>
+        <div class="plan-name">The Accelerator</div>
+        <div class="plan-desc">Single-phase. Fast-track to funding — go live in as few as 10 days.</div>
+        <div class="plan-sizes">
+          <div class="plan-size active" data-plan="acc" data-size="10" data-price="99">$10K</div>
+          <div class="plan-size" data-plan="acc" data-size="25" data-price="169">$25K</div>
+          <div class="plan-size" data-plan="acc" data-size="50" data-price="249">$50K</div>
+          <div class="plan-size" data-plan="acc" data-size="100" data-price="399">$100K</div>
+        </div>
+        <ul class="plan-rules">
+          <li><span>Profit Target</span><span>10%</span></li>
+          <li><span>Max Daily Loss</span><span>5%</span></li>
+          <li><span>Max Total Loss</span><span>10%</span></li>
+          <li><span>Profit Split</span><span style="color:var(--gold-light)">80%</span></li>
+          <li><span>Phases</span><span>1</span></li>
+        </ul>
+        <div class="plan-price">From <strong>$99</strong></div>
+        <button class="btn btn-outline-gold" onclick="openPayFromPlan('Accelerator')">Get Started →</button>
+      </div>
+
+      <!-- Endurance -->
+      <div class="plan-card featured">
+        <div class="plan-featured-badge">Most Popular</div>
+        <div class="plan-icon">🏆</div>
+        <div class="plan-name">The Endurance</div>
+        <div class="plan-desc">Two-phase challenge with relaxed targets. Higher split, scale up to $200K.</div>
+        <div class="plan-sizes">
+          <div class="plan-size active" data-plan="end" data-size="10" data-price="79">$10K</div>
+          <div class="plan-size" data-plan="end" data-size="25" data-price="139">$25K</div>
+          <div class="plan-size" data-plan="end" data-size="50" data-price="219">$50K</div>
+          <div class="plan-size" data-plan="end" data-size="100" data-price="349">$100K</div>
+          <div class="plan-size" data-plan="end" data-size="200" data-price="599">$200K</div>
+        </div>
+        <ul class="plan-rules">
+          <li><span>Phase 1 Target</span><span>8%</span></li>
+          <li><span>Phase 2 Target</span><span>5%</span></li>
+          <li><span>Max Daily Loss</span><span>5%</span></li>
+          <li><span>Profit Split</span><span style="color:var(--gold-light)">up to 90%</span></li>
+          <li><span>Phases</span><span>2</span></li>
+        </ul>
+        <div class="plan-price">From <strong>$79</strong></div>
+        <button class="btn btn-primary" onclick="openPayFromPlan('Endurance')">Get Started →</button>
+      </div>
+
+      <!-- Elite -->
+      <div class="plan-card">
+        <div class="plan-icon">💎</div>
+        <div class="plan-name">The Elite Path</div>
+        <div class="plan-desc">No daily drawdown limit. Trade news freely. Built for seasoned professionals.</div>
+        <div class="plan-sizes">
+          <div class="plan-size active" data-plan="eli" data-size="25" data-price="149">$25K</div>
+          <div class="plan-size" data-plan="eli" data-size="50" data-price="229">$50K</div>
+          <div class="plan-size" data-plan="eli" data-size="100" data-price="359">$100K</div>
+          <div class="plan-size" data-plan="eli" data-size="200" data-price="649">$200K</div>
+        </div>
+        <ul class="plan-rules">
+          <li><span>Profit Target</span><span>12%</span></li>
+          <li><span>Daily Limit</span><span style="color:var(--green)">None ✓</span></li>
+          <li><span>Max Total Loss</span><span>10%</span></li>
+          <li><span>Profit Split</span><span style="color:var(--gold-light)">85%</span></li>
+          <li><span>Phases</span><span>1</span></li>
+        </ul>
+        <div class="plan-price">From <strong>$149</strong></div>
+        <button class="btn btn-outline-gold" onclick="openPayFromPlan('Elite Path')">Get Started →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-inner">
+    <div class="section-header center">
+      <div class="section-tag">Simple Process</div>
+      <h2 class="section-title">From Challenge to Live Capital</h2>
+      <p class="section-sub">Four straightforward steps separate you from a fully funded trading account.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><h3>Choose a Challenge</h3><p>Select your account size and program. Pay a one-time fee — refunded when you get funded.</p></div>
+      <div class="step"><div class="step-num">02</div><h3>Prove Your Skill</h3><p>Trade a demo account under our rules. Hit your profit target while respecting drawdown limits.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>Get Verified</h3><p>Our team reviews your performance. Consistent, disciplined trading gets approved within 24–48h.</p></div>
+      <div class="step"><div class="step-num">04</div><h3>Trade &amp; Earn</h3><p>Receive your live funded account. Request payouts any time and keep up to 90% of profits.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section style="background:var(--darker)" id="why">
+  <div class="section-inner">
+    <div class="section-header center">
+      <div class="section-tag">Why Funded Baby?</div>
+      <h2 class="section-title">Built for Traders, By Traders</h2>
+      <p class="section-sub">Everything we do is designed to help you trade with maximum confidence.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-icon">⚡</div><h3>Fast Payouts</h3><p>Request your profit share any time. Processed within 48 hours, every time. No delays, no excuses.</p></div>
+      <div class="why-card"><div class="why-icon">📈</div><h3>Scale Up to $200K</h3><p>Prove consistency and unlock account scaling. Grow your funded capital from $10K to $200K.</p></div>
+      <div class="why-card"><div class="why-icon">🔒</div><h3>Transparent Rules</h3><p>No hidden tricks. Clear, simple rules you can read in 5 minutes. No surprises on evaluation day.</p></div>
+      <div class="why-card"><div class="why-icon">🌍</div><h3>Trade Any Instrument</h3><p>Forex, gold, indices, crypto, and commodities. Trade what you know best across all major sessions.</p></div>
+      <div class="why-card"><div class="why-icon">💬</div><h3>Real Support</h3><p>Actual human support via WhatsApp and Instagram. We respond fast because we actually care.</p></div>
+      <div class="why-card"><div class="why-icon">🏅</div><h3>Global Leaderboard</h3><p>Compete with the world's best. Top traders featured monthly with bonus prizes and recognition.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-bg" id="stories">
+  <div class="section-inner">
+    <div class="section-header center">
+      <div class="section-tag">Success Stories</div>
+      <h2 class="section-title">Traders Who Made It</h2>
+      <p class="section-sub">Real traders, real results. No fabricated screenshots — just verified performance.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card"><div class="stars">★★★★★</div><p class="testi-quote">"Passed the Accelerator in 8 days. Got funded with $100K. Just received my 3rd payout of $4,200. Funded Baby is the real deal."</p><div class="testi-author"><div class="testi-avatar">JM</div><div><div class="testi-name">James M.</div><div class="testi-role">Forex Trader · $100K Account</div></div></div></div>
+      <div class="testi-card"><div class="stars">★★★★★</div><p class="testi-quote">"The Endurance program was exactly what I needed. Relaxed targets, real payout. Scaled from $25K to $100K in 3 months."</p><div class="testi-author"><div class="testi-avatar">SA</div><div><div class="testi-name">Sofia A.</div><div class="testi-role">Gold &amp; Indices · $100K Account</div></div></div></div>
+      <div class="testi-card"><div class="stars">★★★★★</div><p class="testi-quote">"Elite Path with no daily DD limit changed everything. I trade news freely. Three payouts in 2 months. Highly recommend Funded Baby."</p><div class="testi-author"><div class="testi-avatar">KO</div><div><div class="testi-name">Kevin O.</div><div class="testi-role">News Trader · $200K Account</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-section">
+  <div class="cta-inner section-inner" style="padding:96px 5%">
+    <h2>Ready to Get <span>Funded?</span></h2>
+    <p>Join 2,400+ traders already earning with Funded Baby. Start for as little as $79.</p>
+    <div class="cta-actions">
+      <button class="btn btn-primary" style="font-size:15px;padding:13px 28px" onclick="openModal('pay')">Start Challenge Now →</button>
+      <a href="#contact" class="btn btn-ghost">Talk to Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">Contact</div>
+      <h2 class="section-title">We're Here for You</h2>
+      <p class="section-sub">Real humans, fast responses. Reach us on WhatsApp or Instagram — no bots.</p>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <a class="contact-card" href="https://wa.me/254718828633" target="_blank" rel="noopener">
+          <div class="contact-icon wa">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="#25D366"/></svg>
+          </div>
+          <div><div class="contact-label">WhatsApp</div><div class="contact-val">+254 718 828 633</div></div>
+        </a>
+        <a class="contact-card" href="https://instagram.com/maxi.trades" target="_blank" rel="noopener">
+          <div class="contact-icon ig">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="ig-g" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#f09433"/><stop offset="50%" style="stop-color:#dc2743"/><stop offset="100%" style="stop-color:#bc1888"/></linearGradient></defs><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="url(#ig-g)"/></svg>
+          </div>
+          <div><div class="contact-label">Instagram</div><div class="contact-val">@maxi.trades</div></div>
+        </a>
+        <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:24px;margin-top:8px">
+          <h3 style="font-family:'Playfair Display',serif;font-size:15px;margin-bottom:10px">Operating Hours</h3>
+          <p style="font-size:13px;color:var(--muted);line-height:1.8;font-weight:400">Monday – Friday: 8:00 AM – 8:00 PM EAT<br>Saturday: 9:00 AM – 2:00 PM EAT<br>Sunday: Emergency support only</p>
+          <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border2);font-size:13px;color:var(--muted);font-weight:400">📍 Serving traders globally · Kenya-based team</div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-form-wrap">
+        <h3 style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:6px">Send a Message</h3>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:24px;font-weight:400">We'll get back to you within a few hours.</p>
+        <div class="form-row">
+          <div class="form-group"><label>First Name</label><input type="text" id="cf-fname" placeholder="John"></div>
+          <div class="form-group"><label>Last Name</label><input type="text" id="cf-lname" placeholder="Smith"></div>
+        </div>
+        <div class="form-group"><label>Email</label><input type="email" id="cf-email" placeholder="you@example.com"></div>
+        <div class="form-group">
+          <label>Subject</label>
+          <select id="cf-subject">
+            <option value="">Select a topic...</option>
+            <option>Challenge questions</option>
+            <option>Payment &amp; billing</option>
+            <option>Funded account support</option>
+            <option>Payouts</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Message</label><textarea id="cf-msg" rows="4" placeholder="How can we help you?"></textarea></div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;padding:13px" onclick="submitContactForm()">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="logo" style="font-size:18px"><div class="logo-mark" style="width:28px;height:28px;font-size:12px">F</div> Funded Baby</a>
+      <p>Your gateway to professional funded trading. Built for ambitious traders ready to prove their edge on real capital.</p>
+    </div>
+    <div class="footer-col"><h4>Programs</h4><ul>
+      <li><a href="#programs">The Accelerator</a></li>
+      <li><a href="#programs">The Endurance</a></li>
+      <li><a href="#programs">The Elite Path</a></li>
+      <li><a href="javascript:void(0)" onclick="openModal('pay')">Start a Challenge</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Company</h4><ul>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="#stories">Success Stories</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul>
+      <li><a href="javascript:void(0)">Terms of Service</a></li>
+      <li><a href="javascript:void(0)">Privacy Policy</a></li>
+      <li><a href="javascript:void(0)">Risk Disclaimer</a></li>
+      <li><a href="javascript:void(0)">Refund Policy</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Funded Baby. All rights reserved. Trading involves risk. Challenge fees are non-refundable except upon funding.</p>
+    <div class="footer-social">
+      <a class="social-link" href="https://wa.me/254718828633" target="_blank" title="WhatsApp">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </a>
+      <a class="social-link" href="https://instagram.com/maxi.trades" target="_blank" title="Instagram">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal" style="max-width:440px">
+    <button class="modal-close" onclick="closeModal('authModal')">✕</button>
+    <h2 id="authTitle">Welcome Back</h2>
+    <p class="modal-sub" id="authSub">Sign in to your Funded Baby account</p>
+    <div class="modal-tabs">
+      <button class="mtab active" id="tabLogin" onclick="switchTab('login')">Log In</button>
+      <button class="mtab" id="tabSignup" onclick="switchTab('signup')">Sign Up</button>
+    </div>
+    <div class="tab-content active" id="loginTab">
+      <div class="form-group"><label>Email Address</label><input type="email" id="l-email" placeholder="you@example.com"></div>
+      <div class="form-group"><label>Password</label><input type="password" id="l-pass" placeholder="••••••••"></div>
+      <div style="text-align:right;margin-bottom:20px"><a href="#" style="font-size:12px;color:var(--gold-light)">Forgot password?</a></div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;padding:13px;margin-bottom:16px" onclick="handleLogin()">Log In →</button>
+      <div class="divider"></div>
+      <div class="social-login"><button onclick="showNotif('Google login coming soon!')">Continue with Google</button></div>
+    </div>
+    <div class="tab-content" id="signupTab">
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input type="text" id="s-fname" placeholder="John"></div>
+        <div class="form-group"><label>Last Name</label><input type="text" id="s-lname" placeholder="Smith"></div>
+      </div>
+      <div class="form-group"><label>Email Address</label><input type="email" id="s-email" placeholder="you@example.com"></div>
+      <div class="form-group"><label>Password</label><input type="password" id="s-pass" placeholder="Min. 8 characters"></div>
+      <div class="form-group">
+        <label>Country</label>
+        <select id="s-country">
+          <option value="">Select your country...</option>
+          <option>Kenya</option><option>Nigeria</option><option>South Africa</option><option>Ghana</option><option>Uganda</option><option>Tanzania</option><option>United States</option><option>United Kingdom</option><option>Other</option>
+        </select>
+      </div>
+      <div class="terms-check"><input type="checkbox" id="s-terms"><label for="s-terms">I agree to the <a href="javascript:void(0)" style="color:var(--gold-light)">Terms of Service</a> and <a href="javascript:void(0)" style="color:var(--gold-light)">Privacy Policy</a></label></div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;padding:13px" onclick="handleSignup()">Create Account →</button>
+      <div class="divider"></div>
+      <div class="social-login"><button onclick="showNotif('Google signup coming soon!')">Continue with Google</button></div>
+    </div>
+    <div class="modal-success" id="authSuccess">
+      <div class="success-icon">🎉</div>
+      <h3>Account Created!</h3>
+      <p style="color:var(--muted)">Welcome to Funded Baby. Redirecting to your dashboard…</p>
+    </div>
+  </div>
+</div>
+
+<!-- PAYMENT MODAL -->
+<div class="modal-overlay" id="payModal">
+  <div class="modal" style="max-width:520px">
+    <button class="modal-close" onclick="closeModal('payModal')">✕</button>
+    <!-- STEP 1: Choose Plan -->
+    <div id="payStep1">
+      <h2>Start Your Challenge</h2>
+      <p class="modal-sub">Choose your program and account size to continue</p>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:600">Select Program</div>
+      <div class="plan-selector" id="planSelector">
+        <div class="plan-option selected" data-plan="Accelerator" onclick="selectPlan(this)">
+          <h4>⚡ The Accelerator</h4><p>Single phase, fast funding</p><div class="price">From $99</div>
+        </div>
+        <div class="plan-option" data-plan="Endurance" onclick="selectPlan(this)">
+          <h4>🏆 The Endurance</h4><p>2-phase, up to 90% split</p><div class="price">From $79</div>
+        </div>
+        <div class="plan-option" data-plan="Elite Path" onclick="selectPlan(this)" style="grid-column:1/-1">
+          <h4>💎 The Elite Path</h4><p>No daily DD limit</p><div class="price">From $149</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:600">Account Size</div>
+      <div class="size-selector" id="sizeSelector">
+        <div class="size-opt selected" data-price="99" onclick="selectSize(this)">$10K</div>
+        <div class="size-opt" data-price="169" onclick="selectSize(this)">$25K</div>
+        <div class="size-opt" data-price="249" onclick="selectSize(this)">$50K</div>
+        <div class="size-opt" data-price="399" onclick="selectSize(this)">$100K</div>
+      </div>
+      <div style="background:var(--card2);border-radius:12px;padding:16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;border:1px solid var(--border2)">
+        <div>
+          <div style="font-size:12px;color:var(--muted);font-weight:500;margin-bottom:4px">Challenge Fee</div>
+          <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--gold-light)" id="payTotal">$99</div>
+          <div style="font-size:11px;color:var(--muted);font-weight:400">Fee refunded upon funding</div>
+        </div>
+        <div style="text-align:right;font-size:12px;color:var(--muted);font-weight:500">
+          <div id="payPlanLabel">⚡ Accelerator</div>
+          <div id="paySizeLabel">$10K Account</div>
+        </div>
+      </div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;padding:13px" onclick="goPayStep(2)">Continue to Payment →</button>
+    </div>
+    <!-- STEP 2: Payment -->
+    <div id="payStep2" style="display:none">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+        <button onclick="goPayStep(1)" style="background:var(--card2);border:1px solid var(--border2);color:var(--muted);border-radius:8px;padding:6px 12px;cursor:pointer;font-size:13px;font-family:'Inter',sans-serif">← Back</button>
+        <h2 style="margin-bottom:0">Payment</h2>
+      </div>
+      <p class="modal-sub">Complete your payment to get access to your challenge account</p>
+      <div style="background:var(--card2);border-radius:10px;padding:14px;display:flex;justify-content:space-between;margin-bottom:20px;border:1px solid var(--border2)">
+        <div style="font-size:13px;color:var(--muted);font-weight:400">Order Summary</div>
+        <div style="font-size:14px;font-weight:600" id="payOrderSummary">Accelerator $10K — $99</div>
+      </div>
+      <div class="pay-method-tabs">
+        <button class="pmt-btn active" onclick="switchPayMethod('mpesa',this)">M-Pesa</button>
+        <button class="pmt-btn" onclick="switchPayMethod('card',this)">Card</button>
+        <button class="pmt-btn" onclick="switchPayMethod('crypto',this)">Crypto</button>
+      </div>
+      <!-- M-Pesa -->
+      <div class="pay-method active" id="pm-mpesa">
+        <div class="pay-step">
+          <div class="pay-step-title"><span>1</span> Send M-Pesa Payment</div>
+          <div class="mpesa-info">
+            Paybill: <b>247247</b><button class="copy-btn" onclick="copyText('247247')">Copy</button><br>
+            Account No: <b id="mpesaAccNo">MAXI-ACC10K</b><button class="copy-btn" onclick="copyText(document.getElementById('mpesaAccNo').textContent)">Copy</button><br>
+            Amount: <b id="mpesaAmt">KES ~13,000</b> (≈$99 USD)
+          </div>
+        </div>
+        <div class="pay-step">
+          <div class="pay-step-title"><span>2</span> Enter Your Details</div>
+          <div class="form-group"><label>Your Phone Number</label><input type="tel" id="mp-phone" placeholder="+254 7XX XXX XXX"></div>
+          <div class="form-group"><label>M-Pesa Transaction Code</label><input type="text" id="mp-code" placeholder="e.g. QHX7ABCDE1"></div>
+        </div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;padding:13px" onclick="confirmPayment()">Confirm Payment →</button>
+      </div>
+      <!-- Card -->
+      <div class="pay-method" id="pm-card">
+        <div class="form-group"><label>Card Number</label><input type="text" placeholder="1234 5678 9012 3456" maxlength="19"></div>
+        <div class="form-row">
+          <div class="form-group"><label>Expiry</label><input type="text" placeholder="MM / YY" maxlength="7"></div>
+          <div class="form-group"><label>CVV</label><input type="text" placeholder="123" maxlength="4"></div>
+        </div>
+        <div class="form-group"><label>Name on Card</label><input type="text" placeholder="John Smith"></div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:16px;font-weight:400">🔒 Your card details are encrypted and never stored on our servers.</div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;padding:13px" onclick="confirmPayment()">Pay <span id="cardPayAmt">$99</span> →</button>
+      </div>
+      <!-- Crypto -->
+      <div class="pay-method" id="pm-crypto">
+        <div class="pay-step">
+          <div class="pay-step-title"><span>1</span> Send Payment</div>
+          <div class="mpesa-info">
+            Send <b id="cryptoAmt">$99 USDT</b> to the address below:<br><br>
+            <b style="word-break:break-all">TXcKm9Q7Rr4U2WPsNvBqY6JLFdEaGhMnop</b>
+            <button class="copy-btn" onclick="copyText('TXcKm9Q7Rr4U2WPsNvBqY6JLFdEaGhMnop')">Copy Address</button><br><br>
+            Network: <b>TRON (TRC-20)</b>
+          </div>
+        </div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;padding:13px;margin-top:16px" onclick="confirmPayment()">Confirm Payment →</button>
+      </div>
+    </div>
+    <!-- SUCCESS -->
+    <div id="paySuccess" style="display:none;text-align:center;padding:20px 0">
+      <div style="font-size:56px;margin-bottom:16px">🎊</div>
+      <h3 style="font-size:22px;font-weight:800;margin-bottom:8px">Payment Received!</h3>
+      <p style="font-size:14px;color:var(--muted);line-height:1.8;font-weight:400">Your challenge account is being set up. You'll receive login credentials via email within 24 hours.<br><br>
+        📧 Check your email for account details<br>
+        💬 Questions? WhatsApp us: <a href="https://wa.me/254718828633" style="color:var(--gold-light)">+254 718 828 633</a><br>
+        📸 Follow us: <a href="https://instagram.com/maxi.trades" style="color:var(--gold-light)">@maxi.trades</a>
+      </p>
+      <button class="btn btn-primary" style="margin-top:24px" onclick="closeModal('payModal')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- NOTIFICATION -->
+<div class="notif" id="notif"></div>
+
+<!-- Firebase + Main JS -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDaKGU5Nrtof0lA7GwZN9baIwdpVZaftbQ",
+  authDomain: "the-funded.firebaseapp.com",
+  projectId: "the-funded",
+  storageBucket: "the-funded.firebasestorage.app",
+  messagingSenderId: "656425279116",
+  appId: "1:656425279116:web:d309fc0a731066f28225a9"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+onAuthStateChanged(auth, (user) => {
+  const show = (id, v) => { const el = document.getElementById(id); if(el) el.style.display = v ? '' : 'none'; };
+  if (user) {
+    show('navLogin',false); show('navSignup',false);
+    show('navDashboard',true); show('navProfile',true);
+    show('mNavLogin',false); show('mNavSignup',false);
+    show('mNavDashboard',true); show('mNavProfile',true);
+  } else {
+    show('navLogin',true); show('navSignup',true);
+    show('navDashboard',false); show('navProfile',false);
+    show('mNavLogin',true); show('mNavSignup',true);
+    show('mNavDashboard',false); show('mNavProfile',false);
+  }
+});
+
+window.handleLogin = async function() {
+  const email = document.getElementById('l-email').value.trim();
+  const pass = document.getElementById('l-pass').value;
+  if (!email || !pass) { showNotif('Please fill in all fields.', true); return; }
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+    closeModal('authModal');
+    showNotif('Logged in! Redirecting…');
+    setTimeout(() => window.location.href = 'dashboard.html', 800);
+  } catch(e) {
+    const msgs = { 'auth/user-not-found':'No account found.', 'auth/wrong-password':'Wrong password.', 'auth/invalid-credential':'Invalid email or password.' };
+    showNotif(msgs[e.code] || 'Login failed.', true);
+  }
+};
+
+window.handleSignup = async function() {
+  const fname = document.getElementById('s-fname').value.trim();
+  const lname = document.getElementById('s-lname').value.trim();
+  const email = document.getElementById('s-email').value.trim();
+  const pass = document.getElementById('s-pass').value;
+  const terms = document.getElementById('s-terms').checked;
+  const country = document.getElementById('s-country').value;
+  if (!fname||!lname||!email||!pass) { showNotif('Please fill in all fields.', true); return; }
+  if (pass.length < 8) { showNotif('Password must be at least 8 characters.', true); return; }
+  if (!terms) { showNotif('Please accept the terms.', true); return; }
+  try {
+    const { user } = await createUserWithEmailAndPassword(auth, email, pass);
+    await updateProfile(user, { displayName: `${fname} ${lname}` });
+    await setDoc(doc(db, 'users', user.uid), {
+      uid: user.uid, firstName: fname, lastName: lname, email: user.email,
+      country: country || '', createdAt: serverTimestamp(), accounts: [], totalPayout: 0, avatarUrl: ''
+    });
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.getElementById('authSuccess').style.display = 'block';
+    setTimeout(() => { closeModal('authModal'); window.location.href = 'dashboard.html'; }, 1500);
+  } catch(e) {
+    const msgs = { 'auth/email-already-in-use':'Email already registered.', 'auth/weak-password':'Password too weak.' };
+    showNotif(msgs[e.code] || 'Signup failed.', true);
+  }
+};
+
+window.submitContactForm = function() {
+  const fname = document.getElementById('cf-fname').value.trim();
+  const email = document.getElementById('cf-email').value.trim();
+  const msg = document.getElementById('cf-msg').value.trim();
+  if (!fname || !email || !msg) { showNotif('Please fill in all required fields.', true); return; }
+  showNotif('Message sent! We\'ll get back to you soon.');
+  ['cf-fname','cf-lname','cf-email','cf-msg'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  document.getElementById('cf-subject').value = '';
+};
+</script>
+
+<script>
+function toggleMobileNav() { document.getElementById('mobileNav').classList.toggle('open'); }
+function closeMobileNav() { document.getElementById('mobileNav').classList.remove('open'); }
+
+function openModal(type) {
+  if (type === 'auth') document.getElementById('authModal').classList.add('open');
+  if (type === 'pay') document.getElementById('payModal').classList.add('open');
+}
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+document.addEventListener('click', e => {
+  if (e.target.classList.contains('modal-overlay')) e.target.classList.remove('open');
+});
+
+function switchTab(tab) {
+  document.getElementById('loginTab').classList.toggle('active', tab === 'login');
+  document.getElementById('signupTab').classList.toggle('active', tab === 'signup');
+  document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+  document.getElementById('tabSignup').classList.toggle('active', tab === 'signup');
+  document.getElementById('authSuccess').style.display = 'none';
+}
+
+document.addEventListener('click', e => {
+  const btn = e.target.closest('.plan-size');
+  if (!btn) return;
+  btn.closest('.plan-sizes').querySelectorAll('.plan-size').forEach(s => s.classList.remove('active'));
+  btn.classList.add('active');
+  const priceEl = btn.closest('.plan-card').querySelector('.plan-price strong');
+  if (priceEl && btn.dataset.price) priceEl.textContent = '$' + btn.dataset.price;
+});
+
+function openPayFromPlan(planName) {
+  document.querySelectorAll('.plan-option').forEach(o => o.classList.toggle('selected', o.dataset.plan === planName));
+  updatePaySizes(planName);
+  updatePaySummary();
+  goPayStep(1);
+  openModal('pay');
+}
+
+function selectPlan(el) {
+  document.querySelectorAll('.plan-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  updatePaySizes(el.dataset.plan);
+  updatePaySummary();
+}
+
+function updatePaySizes(planName) {
+  const planSizes = {
+    'Accelerator': [{label:'$10K',price:'99'},{label:'$25K',price:'169'},{label:'$50K',price:'249'},{label:'$100K',price:'399'}],
+    'Endurance':   [{label:'$10K',price:'79'},{label:'$25K',price:'139'},{label:'$50K',price:'219'},{label:'$100K',price:'349'},{label:'$200K',price:'599'}],
+    'Elite Path':  [{label:'$25K',price:'149'},{label:'$50K',price:'229'},{label:'$100K',price:'359'},{label:'$200K',price:'649'}],
+  };
+  const sizes = planSizes[planName] || planSizes['Accelerator'];
+  const container = document.getElementById('sizeSelector');
+  container.innerHTML = sizes.map((s,i) => `<div class="size-opt ${i===0?'selected':''}" data-price="${s.price}" onclick="selectSize(this)">${s.label}</div>`).join('');
+  updatePaySummary();
+}
+
+function selectSize(el) {
+  document.querySelectorAll('#sizeSelector .size-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  updatePaySummary();
+}
+
+function updatePaySummary() {
+  const plan = document.querySelector('.plan-option.selected');
+  const size = document.querySelector('#sizeSelector .size-opt.selected');
+  const price = size ? size.dataset.price : '99';
+  const planName = plan ? plan.dataset.plan : 'Accelerator';
+  const sizeLabel = size ? size.textContent : '$10K';
+  document.getElementById('payTotal').textContent = '$' + price;
+  document.getElementById('payPlanLabel').textContent = planName;
+  document.getElementById('paySizeLabel').textContent = sizeLabel + ' Account';
+  document.getElementById('payOrderSummary').textContent = `${planName} ${sizeLabel} — $${price}`;
+  const mpesaAcc = document.getElementById('mpesaAccNo');
+  const mpesaAmt = document.getElementById('mpesaAmt');
+  const cryptoAmt = document.getElementById('cryptoAmt');
+  const cardAmt = document.getElementById('cardPayAmt');
+  if (mpesaAcc) mpesaAcc.textContent = 'FUNDED-' + sizeLabel.replace('$','');
+  if (mpesaAmt) mpesaAmt.textContent = `KES ~${Math.round(price * 130).toLocaleString()}`;
+  if (cryptoAmt) cryptoAmt.textContent = `$${price} USDT`;
+  if (cardAmt) cardAmt.textContent = `$${price}`;
+}
+
+function goPayStep(step) {
+  document.getElementById('payStep1').style.display = step === 1 ? 'block' : 'none';
+  document.getElementById('payStep2').style.display = step === 2 ? 'block' : 'none';
+  document.getElementById('paySuccess').style.display = 'none';
+  if (step === 2) updatePaySummary();
+}
+
+function switchPayMethod(method, btn) {
+  document.querySelectorAll('.pmt-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('pm-' + method).classList.add('active');
+}
+
+function confirmPayment() {
+  document.getElementById('payStep1').style.display = 'none';
+  document.getElementById('payStep2').style.display = 'none';
+  document.getElementById('paySuccess').style.display = 'block';
+}
+
+function copyText(text) {
+  navigator.clipboard.writeText(text).then(() => showNotif('Copied to clipboard!'));
+}
+
+function showNotif(msg, isError = false) {
+  const el = document.getElementById('notif');
+  el.textContent = msg;
+  el.className = 'notif' + (isError ? ' error' : '');
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
