@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My Profile — Funded Baby</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #050810;
+    --surface:   #0a0e16;
+    --surface2:  #0f1520;
+    --border:    rgba(255,255,255,0.06);
+    --border2:   rgba(255,255,255,0.10);
+    --gold:      #f5c842;
+    --gold-dim:  #a07c1a;
+    --gold-glow: rgba(245,200,66,0.12);
+    --green:     #2ed573;
+    --green-dim: rgba(46,213,115,0.12);
+    --red:       #ff4757;
+    --red-dim:   rgba(255,71,87,0.12);
+    --blue:      #3d8ef0;
+    --blue-dim:  rgba(61,142,240,0.12);
+    --text:      #e8edf2;
+    --muted:     #5a6a7a;
+    --muted2:    #3a4a5a;
+    --font-head: 'Syne', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  html { font-size: 14px; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    grid-template-rows: 56px 1fr;
+  }
+
+  /* ── TICKER ── */
+  .ticker-bar {
+    grid-column: 1/-1;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    z-index: 100;
+  }
+  .ticker-label {
+    font-family: var(--font-head);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    padding: 0 18px;
+    white-space: nowrap;
+    border-right: 1px solid var(--border);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background: var(--surface);
+    z-index: 2;
+  }
+  .ticker-track { flex: 1; overflow: hidden; }
+  .ticker-inner {
+    display: flex;
+    gap: 36px;
+    animation: ticker 30s linear infinite;
+    white-space: nowrap;
+    padding: 0 24px;
+  }
+  .tick { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+  .tick .sym { color: var(--text); font-weight: 500; }
+  .tick .val { color: var(--text); }
+  .tick .chg.up { color: var(--green); }
+  .tick .chg.dn { color: var(--red); }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    grid-row: 2;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 56px;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+  }
+  .sidebar-logo {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .logo-mark {
+    width: 36px; height: 36px;
+    background: var(--gold);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 16px;
+    color: #050810;
+    flex-shrink: 0;
+  }
+  .logo-name { font-family: var(--font-head); font-weight: 700; font-size: 15px; color: var(--text); line-height: 1.1; }
+  .logo-name span { display: block; font-size: 9px; font-weight: 400; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+
+  .sidebar-user {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .user-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 15px;
+    color: #050810;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .user-avatar::after {
+    content: '';
+    position: absolute;
+    bottom: 1px; right: 1px;
+    width: 9px; height: 9px;
+    background: var(--green);
+    border-radius: 50%;
+    border: 2px solid var(--surface);
+  }
+  .user-info .name { font-weight: 600; font-size: 13px; color: var(--text); }
+  .user-info .tier {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--gold);
+    background: var(--gold-glow);
+    border: 1px solid rgba(245,200,66,0.25);
+    border-radius: 4px;
+    padding: 1px 6px;
+    display: inline-block;
+    margin-top: 3px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .sidebar-nav { flex: 1; padding: 16px 0; }
+  .nav-section {
+    padding: 8px 24px 4px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    font-family: var(--font-mono);
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 24px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.18s;
+    border-left: 2px solid transparent;
+    text-decoration: none;
+  }
+  .nav-item:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+  .nav-item.active { color: var(--gold); background: var(--gold-glow); border-left-color: var(--gold); }
+  .nav-icon { width: 16px; text-align: center; font-size: 14px; }
+  .nav-badge { margin-left: auto; background: var(--red); color: #fff; font-size: 9px; font-weight: 700; border-radius: 10px; padding: 2px 6px; font-family: var(--font-mono); }
+  .sidebar-footer { padding: 16px 24px; border-top: 1px solid var(--border); }
+  .sidebar-footer a { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 12px; text-decoration: none; padding: 8px 0; transition: color 0.15s; }
+  .sidebar-footer a:hover { color: var(--text); }
+  .sidebar-footer a.home-link { color: var(--gold); font-weight: 600; }
+  .sidebar-footer a.home-link:hover { color: #fff; }
+
+  /* ── MAIN ── */
+  .main {
+    grid-row: 2;
+    padding: 32px 32px 48px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header { display: flex; align-items: flex-start; justify-content: space-between; }
+  .page-header h1 { font-family: var(--font-head); font-size: 26px; font-weight: 800; color: var(--text); line-height: 1; }
+  .page-header .sub { font-size: 12px; color: var(--muted); margin-top: 5px; font-family: var(--font-mono); }
+  .btn { font-family: var(--font-body); font-size: 12px; font-weight: 600; padding: 9px 18px; border-radius: 8px; cursor: pointer; border: none; transition: all 0.18s; }
+  .btn-outline { background: transparent; border: 1px solid var(--border2); color: var(--text); }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .btn-gold { background: var(--gold); color: #050810; font-weight: 700; }
+  .btn-gold:hover { background: #e8b820; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(245,200,66,0.3); }
+  .btn-red { background: var(--red-dim); border: 1px solid rgba(255,71,87,0.3); color: var(--red); }
+  .btn-red:hover { background: rgba(255,71,87,0.2); }
+  .btn-home {
+    background: transparent;
+    border: 1px solid rgba(245,200,66,0.4);
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .btn-home:hover { background: var(--gold-glow); border-color: var(--gold); }
+
+  /* ── PROFILE HERO CARD ── */
+  .profile-hero {
+    background: linear-gradient(135deg, #0d1a24 0%, #0d1318 50%, #12100d 100%);
+    border: 1px solid var(--border2);
+    border-radius: 16px;
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .profile-hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,200,66,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .profile-avatar-lg {
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 32px;
+    color: #050810;
+    flex-shrink: 0;
+    position: relative;
+    border: 3px solid rgba(245,200,66,0.3);
+    box-shadow: 0 0 30px rgba(245,200,66,0.15);
+  }
+  .online-dot {
+    position: absolute;
+    bottom: 4px; right: 4px;
+    width: 14px; height: 14px;
+    background: var(--green);
+    border-radius: 50%;
+    border: 3px solid var(--surface);
+  }
+  .hero-meta { flex: 1; }
+  .hero-meta h2 { font-family: var(--font-head); font-size: 28px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .hero-meta .hero-email { font-family: var(--font-mono); font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+  .hero-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+  .badge {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid;
+  }
+  .badge-gold  { color: var(--gold);  background: var(--gold-glow);  border-color: rgba(245,200,66,0.3); }
+  .badge-green { color: var(--green); background: var(--green-dim);  border-color: rgba(46,213,115,0.3); }
+  .badge-blue  { color: var(--blue);  background: var(--blue-dim);   border-color: rgba(61,142,240,0.3); }
+  .hero-actions { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+
+  /* ── GRID ── */
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .profile-grid .span2 { grid-column: 1 / -1; }
+
+  /* ── PANEL ── */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .panel-head {
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .panel-head h2 { font-family: var(--font-head); font-size: 14px; font-weight: 700; color: var(--text); }
+  .panel-head .edit-btn {
+    font-size: 11px;
+    color: var(--gold);
+    cursor: pointer;
+    font-family: var(--font-mono);
+    background: none;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+  .panel-head .edit-btn:hover { background: var(--gold-glow); }
+
+  /* ── INFO ROWS ── */
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 22px;
+    border-bottom: 1px solid var(--border);
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-row .ir-label { font-size: 12px; color: var(--muted); }
+  .info-row .ir-value { font-size: 13px; font-weight: 500; color: var(--text); font-family: var(--font-mono); }
+  .info-row .ir-value.verified {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--green);
+  }
+  .info-row .ir-value.verified::before { content: '✓'; font-size: 11px; }
+
+  /* ── STAT GRID ── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+  .stat-cell {
+    background: var(--surface);
+    padding: 20px 22px;
+    transition: background 0.15s;
+  }
+  .stat-cell:hover { background: var(--surface2); }
+  .stat-cell .sc-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-family: var(--font-mono); margin-bottom: 8px; }
+  .stat-cell .sc-value { font-family: var(--font-mono); font-size: 26px; font-weight: 500; color: var(--text); line-height: 1; }
+  .stat-cell .sc-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .stat-cell .sc-value.green { color: var(--green); }
+  .stat-cell .sc-value.gold  { color: var(--gold); }
+
+  /* ── PAYOUT HISTORY ── */
+  .payout-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 22px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .payout-row:last-child { border-bottom: none; }
+  .payout-row:hover { background: rgba(255,255,255,0.02); }
+  .payout-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--green-dim); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+  .payout-icon.pending { background: var(--gold-glow); }
+  .payout-body { flex: 1; }
+  .payout-body .pb-title { font-size: 13px; font-weight: 500; color: var(--text); }
+  .payout-body .pb-date  { font-size: 11px; color: var(--muted); font-family: var(--font-mono); margin-top: 2px; }
+  .payout-amount { font-family: var(--font-mono); font-size: 14px; font-weight: 500; color: var(--green); }
+  .payout-status {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 5px;
+  }
+  .payout-status.paid    { color: var(--green); background: var(--green-dim); }
+  .payout-status.pending { color: var(--gold);  background: var(--gold-glow); }
+
+  /* ── ACCOUNT CARDS ── */
+  .accounts-list { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+  .account-card {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: border-color 0.18s;
+  }
+  .account-card:hover { border-color: var(--gold); }
+  .account-card.active-card { border-color: rgba(46,213,115,0.3); }
+  .ac-indicator { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .ac-indicator.green { background: var(--green); box-shadow: 0 0 6px rgba(46,213,115,0.5); }
+  .ac-indicator.gold  { background: var(--gold); }
+  .ac-indicator.grey  { background: var(--muted2); }
+  .ac-body { flex: 1; }
+  .ac-body .ac-name   { font-size: 13px; font-weight: 600; color: var(--text); }
+  .ac-body .ac-detail { font-size: 11px; color: var(--muted); font-family: var(--font-mono); margin-top: 2px; }
+  .ac-right { text-align: right; }
+  .ac-right .ac-balance { font-family: var(--font-mono); font-size: 14px; font-weight: 500; color: var(--text); }
+  .ac-right .ac-pnl     { font-family: var(--font-mono); font-size: 11px; color: var(--green); }
+  .ac-right .ac-pnl.neg { color: var(--red); }
+
+  /* ── SECURITY ── */
+  .security-list { padding: 8px 0; }
+  .security-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .security-item:last-child { border-bottom: none; }
+  .security-item:hover { background: rgba(255,255,255,0.02); }
+  .si-left { display: flex; align-items: center; gap: 14px; }
+  .si-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .si-icon.blue  { background: var(--blue-dim); }
+  .si-icon.green { background: var(--green-dim); }
+  .si-icon.gold  { background: var(--gold-glow); }
+  .si-icon.red   { background: var(--red-dim); }
+  .si-title { font-size: 13px; font-weight: 500; color: var(--text); }
+  .si-desc  { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .toggle {
+    position: relative;
+    width: 40px; height: 22px;
+    background: var(--muted2);
+    border-radius: 11px;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .toggle::after {
+    content: '';
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    transition: transform 0.2s;
+  }
+  .toggle.on { background: var(--green); }
+  .toggle.on::after { transform: translateX(18px); }
+
+  /* ── DANGER ZONE ── */
+  .danger-zone {
+    background: var(--surface);
+    border: 1px solid rgba(255,71,87,0.2);
+    border-radius: 14px;
+    padding: 22px 24px;
+  }
+  .danger-zone h3 { font-family: var(--font-head); font-size: 13px; font-weight: 700; color: var(--red); margin-bottom: 6px; }
+  .danger-zone p  { font-size: 12px; color: var(--muted); margin-bottom: 16px; line-height: 1.6; }
+  .danger-zone .btn-row { display: flex; gap: 10px; }
+
+  /* ── MODAL OVERLAY ── */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(4px);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: 16px;
+    padding: 32px;
+    width: 440px;
+    max-width: 95vw;
+  }
+  .modal h2 { font-family: var(--font-head); font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .modal p  { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-mono); margin-bottom: 6px; }
+  .form-group input, .form-group select {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    padding: 11px 14px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.18s;
+  }
+  .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
+  .form-group select option { background: var(--surface2); }
+  .modal-actions { display: flex; gap: 10px; margin-top: 24px; }
+  .modal-actions .btn { flex: 1; padding: 12px; font-size: 13px; }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--muted2); border-radius: 4px; }
+
+  @media (max-width: 1100px) { body { grid-template-columns: 200px 1fr; } }
+  @media (max-width: 768px) {
+    body { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .main { padding: 20px 16px; }
+    .profile-grid { grid-template-columns: 1fr; }
+    .profile-hero { flex-direction: column; text-align: center; }
+    .hero-badges { justify-content: center; }
+    .hero-actions { flex-direction: row; align-items: center; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-bar">
+  <div class="ticker-label">LIVE</div>
+  <div class="ticker-track">
+    <div class="ticker-inner" id="tickerInner"></div>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">FB</div>
+    <div class="logo-name">Funded Baby <span>Prop Trading Platform</span></div>
+  </div>
+  <div class="sidebar-user">
+    <div class="user-avatar" id="sidebarAvatar">JM</div>
+    <div class="user-info">
+      <div class="name" id="sidebarName">James M.</div>
+      <div class="tier">Phase 1 — Active</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section">Overview</div>
+    <a class="nav-item" href="dashboard.html"><span class="nav-icon">▦</span> Dashboard</a>
+    <a class="nav-item" href="#"><span class="nav-icon">📈</span> Trading Stats</a>
+    <a class="nav-item" href="#"><span class="nav-icon">⏱</span> Trade History</a>
+    <div class="nav-section" style="margin-top:8px">Account</div>
+    <a class="nav-item" href="#"><span class="nav-icon">💰</span> Payouts <span class="nav-badge">1</span></a>
+    <a class="nav-item" href="#"><span class="nav-icon">📄</span> Certificates</a>
+    <a class="nav-item active" href="profile.html"><span class="nav-icon">👤</span> My Profile</a>
+    <div class="nav-section" style="margin-top:8px">Programs</div>
+    <a class="nav-item" href="#"><span class="nav-icon">⚡</span> Buy Challenge</a>
+    <a class="nav-item" href="#"><span class="nav-icon">🏆</span> Leaderboard</a>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="index.html" class="home-link">🏠 Home</a>
+    <a href="#">⚙ Settings</a>
+    <a href="#">❓ Support</a>
+    <a href="https://wa.me/254718828633">💬 WhatsApp</a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <div class="page-header">
+    <div>
+      <h1>My Profile</h1>
+      <div class="sub">Manage your account, security, and trading identity</div>
+    </div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn btn-home" onclick="window.location.href='index.html'">🏠 Home</button>
+      <button class="btn btn-outline" onclick="window.location.href='dashboard.html'">← Dashboard</button>
+      <button class="btn btn-gold" onclick="openModal('editModal')">Edit Profile</button>
+    </div>
+  </div>
+
+  <!-- PROFILE HERO -->
+  <div class="profile-hero">
+    <div class="profile-avatar-lg" id="heroAvatar">
+      JM
+      <div class="online-dot"></div>
+    </div>
+    <div class="hero-meta">
+      <h2 id="heroName">James Mwangi</h2>
+      <div class="hero-email" id="heroEmail">james.mwangi@email.com</div>
+      <div class="hero-badges">
+        <span class="badge badge-gold">🏆 Endurance Trader</span>
+        <span class="badge badge-green">● Active — Phase 1</span>
+        <span class="badge badge-blue">📍 Kenya</span>
+        <span class="badge badge-gold">Joined May 2026</span>
+      </div>
+    </div>
+    <div class="hero-actions">
+      <button class="btn btn-outline" onclick="openModal('editModal')">✏ Edit</button>
+      <button class="btn btn-outline">📷 Photo</button>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="panel">
+    <div class="panel-head"><h2>Trader Statistics</h2></div>
+    <div class="stat-grid">
+      <div class="stat-cell">
+        <div class="sc-label">Total Accounts</div>
+        <div class="sc-value gold">2</div>
+        <div class="sc-sub">1 active · 1 completed</div>
+      </div>
+      <div class="stat-cell">
+        <div class="sc-label">Total Funded Capital</div>
+        <div class="sc-value">$125K</div>
+        <div class="sc-sub">$100K active + $25K passed</div>
+      </div>
+      <div class="stat-cell">
+        <div class="sc-label">Total Payouts Earned</div>
+        <div class="sc-value green">$8,420</div>
+        <div class="sc-sub">3 payouts processed</div>
+      </div>
+      <div class="stat-cell">
+        <div class="sc-label">Best Challenge Progress</div>
+        <div class="sc-value green">+12.84%</div>
+        <div class="sc-sub">Current $100K account</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-grid">
+
+    <!-- PERSONAL INFO -->
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Personal Information</h2>
+        <button class="edit-btn" onclick="openModal('editModal')">Edit ✏</button>
+      </div>
+      <div class="info-row">
+        <span class="ir-label">Full Name</span>
+        <span class="ir-value" id="infoName">James Mwangi</span>
+      </div>
+      <div class="info-row">
+        <span class="ir-label">Username</span>
+        <span class="ir-value" id="infoUsername">@james_trades</span>
+      </div>
+      <div class="info-row">
+        <span class="ir-label">Email Address</span>
+        <span class="ir-value verified" id="infoEmail">james.mwangi@email.com</span>
+      </div>
+      <div class="info-row">
+        <span class="ir-label">Country</span>
+        <span class="ir-value" id="infoCountry">🇰🇪 Kenya</span>
+      </div>
+      <div class="info-row">
+        <span class="ir-label">Phone / WhatsApp</span>
+        <span class="ir-value" id="infoPhone">+254 7xx xxx xxx</span>
+      </div>
+      <div class="info-row">
+        <span class="ir-label">Member Since</span>
+        <span class="ir-value" id="infoJoined">May 3, 2026</span>
+      </div>
+      <div class="info-row">
+        <span class="ir-label">Account ID</span>
+        <span class="ir-value" style="color:var(--muted)">FB-2026-0041</span>
+      </div>
+    </div>
+
+    <!-- TRADING PREFERENCES -->
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Trading Preferences</h2>
+        <button class="edit-btn" onclick="openModal('prefModal')">Edit ✏</button>
+      </div>
+      <div class="info-row">
+        <span class="ir-label">Trading Style</span>
+        <span class="ir-value">Swing Trader</span>
+      </div>
+      <div class="info-row">
+        <span class="ir-label">Preferred Instruments</span>
+        <span class="ir-value">XAUUSD, EURUSD</span>
+      </div>
+      <div class="info-row">
+        <span class="ir-label">Preferred Sessions</span>
+        <span class="ir-value">London · New York</span>
+      </div>
+      <div class="info-row">
+        <span class="ir-label">Avg. Daily Trades</span>
+        <span class="ir-value">2–4 trades</span>
+      </div>
+      <div class="info-row">
+        <span class="ir-label">Risk Per Trade</span>
+        <span class="ir-value">0.5% – 1%</span>
+      </div>
+      <div class="info-row">
+        <span class="ir-label">Trading Platform</span>
+        <span class="ir-value">MetaTrader 5</span>
+      </div>
+    </div>
+
+    <!-- ACCOUNTS -->
+    <div class="panel span2">
+      <div class="panel-head">
+        <h2>My Challenge Accounts</h2>
+        <button class="btn btn-gold" style="font-size:11px;padding:6px 14px;" onclick="window.location.href='#'">+ New Challenge</button>
+      </div>
+      <div class="accounts-list">
+        <div class="account-card active-card">
+          <div class="ac-indicator green"></div>
+          <div class="ac-body">
+            <div class="ac-name">The Endurance — $100,000</div>
+            <div class="ac-detail">Acc #FB-2026-0041 &nbsp;·&nbsp; Phase 1 In Progress &nbsp;·&nbsp; Started May 3, 2026</div>
+          </div>
+          <div class="ac-right">
+            <div class="ac-balance">$112,840</div>
+            <div class="ac-pnl">▲ +12.84%</div>
+          </div>
+        </div>
+        <div class="account-card">
+          <div class="ac-indicator gold"></div>
+          <div class="ac-body">
+            <div class="ac-name">The Accelerator — $25,000</div>
+            <div class="ac-detail">Acc #FB-2026-0018 &nbsp;·&nbsp; Phase 1 Passed &nbsp;·&nbsp; Completed Apr 2026</div>
+          </div>
+          <div class="ac-right">
+            <div class="ac-balance">$27,200</div>
+            <div class="ac-pnl">▲ +8.80%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYOUT HISTORY -->
+    <div class="panel span2">
+      <div class="panel-head">
+        <h2>Payout History</h2>
+        <a style="font-size:11px;color:var(--gold);font-family:var(--font-mono);text-decoration:none;" href="#">All Payouts →</a>
+      </div>
+      <div class="payout-row">
+        <div class="payout-icon">💸</div>
+        <div class="payout-body">
+          <div class="pb-title">Payout — The Endurance $100K</div>
+          <div class="pb-date">May 10, 2026 &nbsp;·&nbsp; M-Pesa Transfer</div>
+        </div>
+        <div class="payout-amount">+$3,240</div>
+        <div class="payout-status paid">Paid</div>
+      </div>
+      <div class="payout-row">
+        <div class="payout-icon">💸</div>
+        <div class="payout-body">
+          <div class="pb-title">Payout — Accelerator $25K</div>
+          <div class="pb-date">Apr 22, 2026 &nbsp;·&nbsp; M-Pesa Transfer</div>
+        </div>
+        <div class="payout-amount">+$2,880</div>
+        <div class="payout-status paid">Paid</div>
+      </div>
+      <div class="payout-row">
+        <div class="payout-icon pending">⏳</div>
+        <div class="payout-body">
+          <div class="pb-title">Payout Request — Endurance $100K</div>
+          <div class="pb-date">May 21, 2026 &nbsp;·&nbsp; Processing within 48h</div>
+        </div>
+        <div class="payout-amount" style="color:var(--gold)">+$11,556</div>
+        <div class="payout-status pending">Pending</div>
+      </div>
+    </div>
+
+    <!-- SECURITY -->
+    <div class="panel span2">
+      <div class="panel-head"><h2>Security & Settings</h2></div>
+      <div class="security-list">
+        <div class="security-item">
+          <div class="si-left">
+            <div class="si-icon blue">🔑</div>
+            <div>
+              <div class="si-title">Password</div>
+              <div class="si-desc">Last changed 30 days ago</div>
+            </div>
+          </div>
+          <button class="btn btn-outline" style="font-size:11px;padding:7px 14px;" onclick="openModal('pwModal')">Change Password</button>
+        </div>
+        <div class="security-item">
+          <div class="si-left">
+            <div class="si-icon green">🛡</div>
+            <div>
+              <div class="si-title">Two-Factor Authentication</div>
+              <div class="si-desc">Add an extra layer of security to your account</div>
+            </div>
+          </div>
+          <button class="toggle" id="toggle2FA" onclick="this.classList.toggle('on')"></button>
+        </div>
+        <div class="security-item">
+          <div class="si-left">
+            <div class="si-icon gold">🔔</div>
+            <div>
+              <div class="si-title">Email Notifications</div>
+              <div class="si-desc">Trade confirmations, payouts, account updates</div>
+            </div>
+          </div>
+          <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+        </div>
+        <div class="security-item">
+          <div class="si-left">
+            <div class="si-icon blue">📱</div>
+            <div>
+              <div class="si-title">WhatsApp Alerts</div>
+              <div class="si-desc">Get notified on your phone for important events</div>
+            </div>
+          </div>
+          <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+        </div>
+        <div class="security-item">
+          <div class="si-left">
+            <div class="si-icon red">🚪</div>
+            <div>
+              <div class="si-title">Sign Out of All Devices</div>
+              <div class="si-desc">Revoke all active sessions immediately</div>
+            </div>
+          </div>
+          <button class="btn btn-outline" style="font-size:11px;padding:7px 14px;color:var(--red);border-color:rgba(255,71,87,0.3);">Sign Out All</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DANGER ZONE -->
+  <div class="danger-zone">
+    <h3>⚠ Danger Zone</h3>
+    <p>These actions are irreversible. Please make sure you understand the consequences before proceeding. Account deletion removes all your trading history and payouts permanently.</p>
+    <div class="btn-row">
+      <button class="btn btn-red">Deactivate Account</button>
+      <button class="btn btn-red">Delete Account Permanently</button>
+    </div>
+  </div>
+
+</main>
+
+<!-- EDIT PROFILE MODAL -->
+<div class="modal-overlay" id="editModal" onclick="if(event.target===this)closeModal('editModal')">
+  <div class="modal">
+    <h2>Edit Profile</h2>
+    <p>Update your personal information below.</p>
+    <div class="form-group">
+      <label>Full Name</label>
+      <input type="text" id="editName" value="James Mwangi"/>
+    </div>
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" id="editUsername" value="@james_trades"/>
+    </div>
+    <div class="form-group">
+      <label>WhatsApp / Phone</label>
+      <input type="tel" id="editPhone" value="+254 7xx xxx xxx"/>
+    </div>
+    <div class="form-group">
+      <label>Country</label>
+      <select id="editCountry">
+        <option selected>Kenya</option>
+        <option>Nigeria</option>
+        <option>South Africa</option>
+        <option>Ghana</option>
+        <option>Uganda</option>
+        <option>Tanzania</option>
+        <option>United States</option>
+        <option>United Kingdom</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('editModal')">Cancel</button>
+      <button class="btn btn-gold" onclick="saveProfile()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHANGE PASSWORD MODAL -->
+<div class="modal-overlay" id="pwModal" onclick="if(event.target===this)closeModal('pwModal')">
+  <div class="modal">
+    <h2>Change Password</h2>
+    <p>Enter your current password and choose a new one.</p>
+    <div class="form-group">
+      <label>Current Password</label>
+      <input type="password" placeholder="••••••••"/>
+    </div>
+    <div class="form-group">
+      <label>New Password</label>
+      <input type="password" placeholder="Min. 8 characters"/>
+    </div>
+    <div class="form-group">
+      <label>Confirm New Password</label>
+      <input type="password" placeholder="Repeat new password"/>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('pwModal')">Cancel</button>
+      <button class="btn btn-gold">Update Password</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Ticker
+  const tickers = [
+    {sym:'EURUSD',val:'1.0847',chg:'+0.23%',up:true},
+    {sym:'GBPUSD',val:'1.2634',chg:'-0.11%',up:false},
+    {sym:'XAUUSD',val:'2,341', chg:'+0.87%',up:true},
+    {sym:'USDJPY',val:'149.32',chg:'-0.18%',up:false},
+    {sym:'BTCUSD',val:'67,420',chg:'+2.14%',up:true},
+    {sym:'NAS100',val:'18,342',chg:'+0.56%',up:true},
+    {sym:'USDCAD',val:'1.3621',chg:'-0.08%',up:false},
+    {sym:'AUDUSD',val:'0.6598',chg:'+0.31%',up:true},
+  ];
+  const ti = document.getElementById('tickerInner');
+  ti.innerHTML = [...tickers,...tickers].map(t =>
+    `<span class="tick"><span class="sym">${t.sym}</span><span class="val">${t.val}</span><span class="chg ${t.up?'up':'dn'}">${t.chg}</span></span>`
+  ).join('');
+
+  function openModal(id)  { document.getElementById(id).classList.add('open'); }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+  function saveProfile() {
+    const name     = document.getElementById('editName').value;
+    const username = document.getElementById('editUsername').value;
+    const phone    = document.getElementById('editPhone').value;
+    const country  = document.getElementById('editCountry').value;
+    const flags = {Kenya:'🇰🇪',Nigeria:'🇳🇬','South Africa':'🇿🇦',Ghana:'🇬🇭',Uganda:'🇺🇬',Tanzania:'🇹🇿','United States':'🇺🇸','United Kingdom':'🇬🇧',Other:'🌍'};
+    document.getElementById('heroName').textContent    = name;
+    document.getElementById('infoName').textContent    = name;
+    document.getElementById('infoUsername').textContent = username;
+    document.getElementById('infoPhone').textContent   = phone;
+    document.getElementById('infoCountry').textContent = (flags[country]||'🌍') + ' ' + country;
+    const initials = name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
+    document.getElementById('heroAvatar').childNodes[0].textContent = initials;
+    document.getElementById('sidebarAvatar').textContent = initials;
+    closeModal('editModal');
+  }
+</script>
+</body>
+</html>
