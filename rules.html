@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Challenge Rules — Funded Baby</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #080c10;
+    --surface:   #0d1318;
+    --surface2:  #111920;
+    --border:    rgba(255,255,255,0.06);
+    --border2:   rgba(255,255,255,0.10);
+    --gold:      #c9a84c;
+    --gold-dim:  #8a6a28;
+    --gold-glow: rgba(201,168,76,0.15);
+    --green:     #2ed573;
+    --green-dim: rgba(46,213,115,0.12);
+    --red:       #ff4757;
+    --red-dim:   rgba(255,71,87,0.12);
+    --blue:      #3d8ef0;
+    --blue-dim:  rgba(61,142,240,0.12);
+    --text:      #e8edf2;
+    --muted:     #5a6a7a;
+    --muted2:    #3a4a5a;
+    --font-head: 'Syne', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  html { font-size: 14px; scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-body); min-height: 100vh; }
+
+  /* ── NAV ── */
+  nav.topnav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .logo-mark { width: 34px; height: 34px; background: var(--gold); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--font-head); font-weight: 800; font-size: 14px; color: #080c10; }
+  .logo-name { font-family: var(--font-head); font-weight: 700; font-size: 15px; color: var(--text); }
+  .nav-links { display: flex; align-items: center; gap: 6px; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 7px 14px;
+    border-radius: 8px;
+    transition: all 0.15s;
+  }
+  .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+  .nav-links a.active { color: var(--gold); background: var(--gold-glow); }
+  .btn { font-family: var(--font-body); font-size: 12px; font-weight: 600; padding: 9px 18px; border-radius: 8px; cursor: pointer; border: none; transition: all 0.18s; text-decoration: none; }
+  .btn-gold { background: var(--gold); color: #080c10; font-weight: 700; }
+  .btn-gold:hover { background: #d4b05a; }
+  .btn-outline { background: transparent; border: 1px solid var(--border2); color: var(--text); }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ── PAGE HERO ── */
+  .page-hero {
+    text-align: center;
+    padding: 64px 40px 48px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .page-hero h1 { font-family: var(--font-head); font-size: 42px; font-weight: 800; color: var(--text); margin-bottom: 14px; line-height: 1.1; }
+  .page-hero p { font-size: 15px; color: var(--muted); max-width: 560px; margin: 0 auto 28px; line-height: 1.7; }
+  .hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  /* ── MAIN CONTENT ── */
+  .content { max-width: 1100px; margin: 0 auto; padding: 48px 40px; }
+
+  /* ── PROGRAM TABS ── */
+  .program-tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 6px;
+    margin-bottom: 40px;
+    width: fit-content;
+  }
+  .prog-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    background: none;
+    color: var(--muted);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .prog-tab:hover { color: var(--text); }
+  .prog-tab.active { background: var(--surface2); color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+  .prog-tab.active.gold-tab { color: var(--gold); }
+  .prog-tab.active.green-tab { color: var(--green); }
+  .prog-tab.active.blue-tab { color: var(--blue); }
+
+  /* ── PROGRAM PANELS ── */
+  .prog-panel { display: none; }
+  .prog-panel.active { display: block; }
+
+  /* ── PROGRAM HEADER ── */
+  .prog-header {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 28px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .prog-header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .ph-accel::before { background: radial-gradient(circle, rgba(61,142,240,0.08) 0%, transparent 70%); }
+  .ph-endur::before { background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%); }
+  .ph-elite::before { background: radial-gradient(circle, rgba(46,213,115,0.08) 0%, transparent 70%); }
+  .prog-icon { font-size: 42px; margin-bottom: 12px; }
+  .prog-header h2 { font-family: var(--font-head); font-size: 28px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .prog-header p  { font-size: 13px; color: var(--muted); line-height: 1.6; max-width: 500px; }
+  .prog-header .from { text-align: right; }
+  .prog-header .from .price { font-family: var(--font-mono); font-size: 42px; font-weight: 500; color: var(--text); line-height: 1; }
+  .prog-header .from .price-label { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .prog-header .from .btn { margin-top: 14px; display: inline-block; padding: 12px 28px; font-size: 13px; }
+
+  /* ── SIZE SELECTOR ── */
+  .size-section { margin-bottom: 28px; }
+  .size-section h3 { font-family: var(--font-head); font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 16px; }
+  .size-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .size-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .size-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .size-card.selected { border-color: var(--gold); background: var(--gold-glow); }
+  .size-card .sc-size { font-family: var(--font-head); font-size: 20px; font-weight: 800; color: var(--text); }
+  .size-card .sc-fee  { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .size-card.selected .sc-size { color: var(--gold); }
+  .size-card.selected .sc-fee  { color: var(--gold-dim); }
+
+  /* ── RULES GRID ── */
+  .rules-section { margin-bottom: 28px; }
+  .rules-section h3 { font-family: var(--font-head); font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 16px; }
+  .rules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .rule-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: border-color 0.18s;
+  }
+  .rule-card:hover { border-color: var(--border2); }
+  .rule-card .rc-icon { font-size: 22px; margin-bottom: 10px; }
+  .rule-card .rc-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-family: var(--font-mono); margin-bottom: 6px; }
+  .rule-card .rc-value { font-family: var(--font-mono); font-size: 22px; font-weight: 500; color: var(--text); }
+  .rule-card .rc-desc  { font-size: 11px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+  .rule-card.pass .rc-value { color: var(--green); }
+  .rule-card.warn .rc-value { color: var(--gold); }
+  .rule-card.info .rc-value { color: var(--blue); }
+
+  /* ── ALLOWED / PROHIBITED ── */
+  .ap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+  .ap-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .ap-head {
+    padding: 14px 20px;
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .ap-head.allowed { color: var(--green); background: var(--green-dim); }
+  .ap-head.prohibited { color: var(--red); background: var(--red-dim); }
+  .ap-list { padding: 8px 0; }
+  .ap-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 11px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .ap-item:last-child { border-bottom: none; }
+  .ap-item .ap-dot { font-size: 12px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── PAYOUT SECTION ── */
+  .payout-section {
+    background: linear-gradient(135deg, #0d1a10, #0d1318);
+    border: 1px solid rgba(46,213,115,0.2);
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin-bottom: 28px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+  }
+  .payout-section h3 { font-family: var(--font-head); font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+  .payout-section p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .payout-split-display {
+    text-align: center;
+    background: var(--green-dim);
+    border: 1px solid rgba(46,213,115,0.2);
+    border-radius: 12px;
+    padding: 20px 32px;
+  }
+  .payout-split-display .split-num { font-family: var(--font-mono); font-size: 48px; font-weight: 500; color: var(--green); line-height: 1; }
+  .payout-split-display .split-label { font-size: 11px; color: var(--muted); margin-top: 4px; font-family: var(--font-mono); }
+
+  /* ── FAQ ── */
+  .faq-section { margin-bottom: 28px; }
+  .faq-section h3 { font-family: var(--font-head); font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 16px; }
+  .faq-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+  .faq-q {
+    padding: 16px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.15s;
+    user-select: none;
+  }
+  .faq-q:hover { background: rgba(255,255,255,0.02); }
+  .faq-q .faq-arrow { color: var(--muted); transition: transform 0.2s; font-size: 12px; }
+  .faq-item.open .faq-q { color: var(--gold); border-bottom: 1px solid var(--border); }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); color: var(--gold); }
+  .faq-a {
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.2s;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .faq-item.open .faq-a { max-height: 200px; padding: 16px 20px; }
+
+  /* ── CTA BOTTOM ── */
+  .cta-bottom {
+    text-align: center;
+    padding: 56px 40px;
+    border-top: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-bottom::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%;
+    transform: translateX(-50%);
+    width: 500px; height: 300px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-bottom h2 { font-family: var(--font-head); font-size: 32px; font-weight: 800; color: var(--text); margin-bottom: 12px; }
+  .cta-bottom p  { font-size: 14px; color: var(--muted); max-width: 480px; margin: 0 auto 28px; line-height: 1.7; }
+
+  /* FOOTER */
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--muted2); border-radius: 4px; }
+
+  @media (max-width: 768px) {
+    nav.topnav { padding: 0 20px; }
+    nav.topnav .nav-links { display: none; }
+    .page-hero { padding: 48px 20px 36px; }
+    .page-hero h1 { font-size: 28px; }
+    .content { padding: 32px 20px; }
+    .program-tabs { flex-direction: column; width: 100%; }
+    .prog-header { grid-template-columns: 1fr; }
+    .prog-header .from { text-align: left; }
+    .size-grid { grid-template-columns: repeat(3, 1fr); }
+    .rules-grid { grid-template-columns: 1fr 1fr; }
+    .ap-grid { grid-template-columns: 1fr; }
+    .payout-section { grid-template-columns: 1fr; text-align: center; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="topnav">
+  <a href="index.html" class="nav-logo">
+    <div class="logo-mark">FB</div>
+    <span class="logo-name">Funded Baby</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html#programs">Programs</a>
+    <a href="rules.html" class="active">Rules</a>
+    <a href="index.html#how">How It Works</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="dashboard.html">Dashboard</a>
+  </div>
+  <div style="display:flex;gap:8px;">
+    <a href="login.html" class="btn btn-outline">Log In</a>
+    <a href="signup.html" class="btn btn-gold">Get Funded →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="hero-eyebrow">Challenge Rules & Guidelines</div>
+  <h1>Simple Rules.<br/>Maximum Clarity.</h1>
+  <p>No hidden tricks, no surprise disqualifications. Our rules are designed to reward real, disciplined trading — not luck. Read everything on this page before you start.</p>
+  <div class="hero-cta">
+    <a href="signup.html" class="btn btn-gold">Start a Challenge →</a>
+    <a href="index.html#contact" class="btn btn-outline">Ask a Question</a>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- PROGRAM TABS -->
+  <div class="program-tabs">
+    <button class="prog-tab active gold-tab" onclick="switchProg('accel',this)">⚡ The Accelerator</button>
+    <button class="prog-tab green-tab"        onclick="switchProg('endur',this)">🏆 The Endurance</button>
+    <button class="prog-tab blue-tab"         onclick="switchProg('elite',this)">💎 The Elite Path</button>
+  </div>
+
+  <!-- ═══ ACCELERATOR ═══ -->
+  <div class="prog-panel active" id="panel-accel">
+    <div class="prog-header ph-accel">
+      <div>
+        <div class="prog-icon">⚡</div>
+        <h2>The Accelerator</h2>
+        <p>Single-phase challenge built for speed. Hit the profit target with clean risk management and you're funded — no second phase, no delays. Go live in as few as 10 days.</p>
+      </div>
+      <div class="from">
+        <div class="price">$99</div>
+        <div class="price-label">One-time fee (refunded on funding)</div>
+        <a href="signup.html" class="btn btn-gold">Start Now →</a>
+      </div>
+    </div>
+
+    <!-- SIZE -->
+    <div class="size-section">
+      <h3>Account Sizes & Fees</h3>
+      <div class="size-grid" style="grid-template-columns:repeat(4,1fr)">
+        <div class="size-card selected" onclick="selectSize(this)"><div class="sc-size">$10K</div><div class="sc-fee">$99</div></div>
+        <div class="size-card"          onclick="selectSize(this)"><div class="sc-size">$25K</div><div class="sc-fee">$179</div></div>
+        <div class="size-card"          onclick="selectSize(this)"><div class="sc-size">$50K</div><div class="sc-fee">$299</div></div>
+        <div class="size-card"          onclick="selectSize(this)"><div class="sc-size">$100K</div><div class="sc-fee">$499</div></div>
+      </div>
+    </div>
+
+    <!-- RULES -->
+    <div class="rules-section">
+      <h3>Phase Rules</h3>
+      <div class="rules-grid">
+        <div class="rule-card pass">
+          <div class="rc-icon">🎯</div>
+          <div class="rc-label">Profit Target</div>
+          <div class="rc-value">10%</div>
+          <div class="rc-desc">Reach 10% net profit to pass. Losses from open positions are included in the calculation.</div>
+        </div>
+        <div class="rule-card warn">
+          <div class="rc-icon">📉</div>
+          <div class="rc-label">Max Daily Loss</div>
+          <div class="rc-value">5%</div>
+          <div class="rc-desc">You cannot lose more than 5% of the starting balance in a single trading day. Reset at midnight server time.</div>
+        </div>
+        <div class="rule-card warn">
+          <div class="rc-icon">🛡</div>
+          <div class="rc-label">Max Total Loss</div>
+          <div class="rc-value">10%</div>
+          <div class="rc-desc">Your account equity must never fall below 90% of the initial balance at any time.</div>
+        </div>
+        <div class="rule-card info">
+          <div class="rc-icon">📅</div>
+          <div class="rc-label">Min Trading Days</div>
+          <div class="rc-value">5 days</div>
+          <div class="rc-desc">Minimum 5 trading days with at least 1 closed trade per day before passing the challenge.</div>
+        </div>
+        <div class="rule-card pass">
+          <div class="rc-icon">💰</div>
+          <div class="rc-label">Profit Split</div>
+          <div class="rc-value">80%</div>
+          <div class="rc-desc">Keep 80% of all profits on your funded live account. Scale up to 85% with the scaling plan.</div>
+        </div>
+        <div class="rule-card info">
+          <div class="rc-icon">⚙</div>
+          <div class="rc-label">Phases</div>
+          <div class="rc-value">1 Phase</div>
+          <div class="rc-desc">Single evaluation phase. Pass once and you're funded — no second round required.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALLOWED / PROHIBITED -->
+    <div class="ap-grid">
+      <div class="ap-card">
+        <div class="ap-head allowed">✓ &nbsp;Allowed</div>
+        <div class="ap-list">
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> All major forex pairs (EURUSD, GBPUSD, USDJPY, etc.)</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> Gold (XAUUSD) and Silver (XAGUSD)</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> Major indices (NAS100, SP500, DAX)</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> Cryptocurrency pairs (BTCUSD, ETHUSD)</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> Trading during news events allowed</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> Expert Advisors (EAs) — no grid/martingale</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> Holding trades over the weekend</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> Scaling lot sizes during the challenge</div>
+        </div>
+      </div>
+      <div class="ap-card">
+        <div class="ap-head prohibited">✕ &nbsp;Prohibited</div>
+        <div class="ap-list">
+          <div class="ap-item"><span class="ap-dot" style="color:var(--red)">✕</span> Martingale or grid trading strategies</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--red)">✕</span> Latency arbitrage or tick scalping</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--red)">✕</span> Copy trading from another challenge account</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--red)">✕</span> Account sharing or trading for others</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--red)">✕</span> Exploiting pricing errors or broker glitches</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--red)">✕</span> Reverse copying between accounts you own</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--red)">✕</span> Using the same strategy to intentionally fail</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYOUT -->
+    <div class="payout-section">
+      <div>
+        <h3>💸 Payout Terms</h3>
+        <p>Once funded, request your first payout after 14 trading days. Subsequent payouts can be requested every 14 days. All payouts are processed within 48 hours via M-Pesa, bank transfer, or crypto. The challenge fee is refunded on your first payout.</p>
+      </div>
+      <div class="payout-split-display">
+        <div class="split-num">80%</div>
+        <div class="split-label">Your profit share</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ ENDURANCE ═══ -->
+  <div class="prog-panel" id="panel-endur">
+    <div class="prog-header ph-endur">
+      <div>
+        <div class="prog-icon">🏆</div>
+        <h2>The Endurance</h2>
+        <p>Two-phase challenge with relaxed targets built for disciplined, consistent traders. Higher profit split and the ability to scale to $200K. This is the most popular path to funding.</p>
+      </div>
+      <div class="from">
+        <div class="price">$79</div>
+        <div class="price-label">One-time fee (refunded on funding)</div>
+        <a href="signup.html" class="btn btn-gold">Start Now →</a>
+      </div>
+    </div>
+
+    <div class="size-section">
+      <h3>Account Sizes & Fees</h3>
+      <div class="size-grid">
+        <div class="size-card selected" onclick="selectSize(this)"><div class="sc-size">$10K</div><div class="sc-fee">$79</div></div>
+        <div class="size-card"          onclick="selectSize(this)"><div class="sc-size">$25K</div><div class="sc-fee">$149</div></div>
+        <div class="size-card"          onclick="selectSize(this)"><div class="sc-size">$50K</div><div class="sc-fee">$249</div></div>
+        <div class="size-card"          onclick="selectSize(this)"><div class="sc-size">$100K</div><div class="sc-fee">$449</div></div>
+        <div class="size-card"          onclick="selectSize(this)"><div class="sc-size">$200K</div><div class="sc-fee">$799</div></div>
+      </div>
+    </div>
+
+    <div class="rules-section">
+      <h3>Phase Rules</h3>
+      <div class="rules-grid">
+        <div class="rule-card pass">
+          <div class="rc-icon">🎯</div>
+          <div class="rc-label">Phase 1 Target</div>
+          <div class="rc-value">8%</div>
+          <div class="rc-desc">Reach 8% net profit in Phase 1. Losses from open trades count toward the target calculation.</div>
+        </div>
+        <div class="rule-card pass">
+          <div class="rc-icon">🎯</div>
+          <div class="rc-label">Phase 2 Target</div>
+          <div class="rc-value">5%</div>
+          <div class="rc-desc">A lighter 5% target in Phase 2 confirms your consistency before live funding is granted.</div>
+        </div>
+        <div class="rule-card warn">
+          <div class="rc-icon">📉</div>
+          <div class="rc-label">Max Daily Loss</div>
+          <div class="rc-value">5%</div>
+          <div class="rc-desc">Maximum 5% loss of starting balance in any single calendar day (server time). Applies to both phases.</div>
+        </div>
+        <div class="rule-card warn">
+          <div class="rc-icon">🛡</div>
+          <div class="rc-label">Max Total Loss</div>
+          <div class="rc-value">10%</div>
+          <div class="rc-desc">Account equity must never fall more than 10% below the initial balance at any point.</div>
+        </div>
+        <div class="rule-card info">
+          <div class="rc-icon">📅</div>
+          <div class="rc-label">Min Trading Days</div>
+          <div class="rc-value">10 days</div>
+          <div class="rc-desc">Minimum 10 trading days across both phases combined (5 per phase) before passing.</div>
+        </div>
+        <div class="rule-card pass">
+          <div class="rc-icon">💰</div>
+          <div class="rc-label">Profit Split</div>
+          <div class="rc-value">up to 90%</div>
+          <div class="rc-desc">Start at 80% and scale up to 90% as you grow your funded account with consistent results.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ap-grid">
+      <div class="ap-card">
+        <div class="ap-head allowed">✓ &nbsp;Allowed</div>
+        <div class="ap-list">
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> All major forex, gold, indices, crypto</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> Trading during news events allowed</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> Expert Advisors (no grid/martingale)</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> Holding trades overnight and over weekends</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> Scaling lot sizes during the challenge</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> Multiple open positions simultaneously</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> Account scaling up to $200K on live account</div>
+        </div>
+      </div>
+      <div class="ap-card">
+        <div class="ap-head prohibited">✕ &nbsp;Prohibited</div>
+        <div class="ap-list">
+          <div class="ap-item"><span class="ap-dot" style="color:var(--red)">✕</span> Martingale or grid trading strategies</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--red)">✕</span> Latency arbitrage or tick scalping</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--red)">✕</span> Copy trading from another challenge account</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--red)">✕</span> Account sharing or third-party trading</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--red)">✕</span> Exploiting pricing errors or data glitches</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--red)">✕</span> Intentional account failure strategies</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="payout-section">
+      <div>
+        <h3>💸 Payout Terms</h3>
+        <p>First payout available after 14 trading days on the funded account. Payouts every 14 days thereafter. Processed within 48h via M-Pesa, bank, or crypto. Challenge fee refunded on first payout. Scale to 90% split as your account grows.</p>
+      </div>
+      <div class="payout-split-display">
+        <div class="split-num">90%</div>
+        <div class="split-label">Max profit share</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ ELITE PATH ═══ -->
+  <div class="prog-panel" id="panel-elite">
+    <div class="prog-header ph-elite">
+      <div>
+        <div class="prog-icon">💎</div>
+        <h2>The Elite Path</h2>
+        <p>Built for professional traders who demand maximum freedom. No daily drawdown limit. Trade news without restrictions. One phase, direct to funding. For traders who know exactly what they're doing.</p>
+      </div>
+      <div class="from">
+        <div class="price">$149</div>
+        <div class="price-label">One-time fee (refunded on funding)</div>
+        <a href="signup.html" class="btn btn-gold">Start Now →</a>
+      </div>
+    </div>
+
+    <div class="size-section">
+      <h3>Account Sizes & Fees</h3>
+      <div class="size-grid" style="grid-template-columns:repeat(4,1fr)">
+        <div class="size-card selected" onclick="selectSize(this)"><div class="sc-size">$25K</div><div class="sc-fee">$149</div></div>
+        <div class="size-card"          onclick="selectSize(this)"><div class="sc-size">$50K</div><div class="sc-fee">$249</div></div>
+        <div class="size-card"          onclick="selectSize(this)"><div class="sc-size">$100K</div><div class="sc-fee">$399</div></div>
+        <div class="size-card"          onclick="selectSize(this)"><div class="sc-size">$200K</div><div class="sc-fee">$699</div></div>
+      </div>
+    </div>
+
+    <div class="rules-section">
+      <h3>Phase Rules</h3>
+      <div class="rules-grid">
+        <div class="rule-card pass">
+          <div class="rc-icon">🎯</div>
+          <div class="rc-label">Profit Target</div>
+          <div class="rc-value">12%</div>
+          <div class="rc-desc">Higher target reflects the premium freedom this account offers. Net 12% profit to pass.</div>
+        </div>
+        <div class="rule-card pass">
+          <div class="rc-icon">📉</div>
+          <div class="rc-label">Daily Drawdown Limit</div>
+          <div class="rc-value">None ✓</div>
+          <div class="rc-desc">No daily drawdown restriction. Trade as freely as you want within the total drawdown limit.</div>
+        </div>
+        <div class="rule-card warn">
+          <div class="rc-icon">🛡</div>
+          <div class="rc-label">Max Total Loss</div>
+          <div class="rc-value">10%</div>
+          <div class="rc-desc">The only hard limit: don't let equity fall below 90% of initial balance. No daily cap on top.</div>
+        </div>
+        <div class="rule-card info">
+          <div class="rc-icon">📅</div>
+          <div class="rc-label">Min Trading Days</div>
+          <div class="rc-value">5 days</div>
+          <div class="rc-desc">Minimum 5 days of trading activity required before the challenge can be passed.</div>
+        </div>
+        <div class="rule-card pass">
+          <div class="rc-icon">💰</div>
+          <div class="rc-label">Profit Split</div>
+          <div class="rc-value">85%</div>
+          <div class="rc-desc">85% profit split from day one on the funded account. No scaling steps required.</div>
+        </div>
+        <div class="rule-card info">
+          <div class="rc-icon">⚙</div>
+          <div class="rc-label">Phases</div>
+          <div class="rc-value">1 Phase</div>
+          <div class="rc-desc">Single evaluation phase. One review and you're live with full capital.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ap-grid">
+      <div class="ap-card">
+        <div class="ap-head allowed">✓ &nbsp;Allowed</div>
+        <div class="ap-list">
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> All instruments: forex, gold, indices, crypto</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> Trading through news events — fully allowed</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> Overnight and weekend holds</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> Expert Advisors (no grid/martingale)</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> High-frequency intraday trading</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> Any position sizing within total DD limit</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--green)">✓</span> Scale up to $200K on the funded account</div>
+        </div>
+      </div>
+      <div class="ap-card">
+        <div class="ap-head prohibited">✕ &nbsp;Prohibited</div>
+        <div class="ap-list">
+          <div class="ap-item"><span class="ap-dot" style="color:var(--red)">✕</span> Martingale or grid strategies</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--red)">✕</span> Latency arbitrage or price feed exploitation</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--red)">✕</span> Account sharing or third-party operation</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--red)">✕</span> Copy-trading from other challenge accounts</div>
+          <div class="ap-item"><span class="ap-dot" style="color:var(--red)">✕</span> Intentional account failure or abuse</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="payout-section">
+      <div>
+        <h3>💸 Payout Terms</h3>
+        <p>First payout after 14 trading days on the funded account. Every 14 days thereafter — no waiting. Processed within 48 hours via M-Pesa, bank transfer, or USDT. Challenge fee returned on your first payout.</p>
+      </div>
+      <div class="payout-split-display">
+        <div class="split-num">85%</div>
+        <div class="split-label">Your profit share</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <h3>Frequently Asked Questions</h3>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">What happens if I hit the max drawdown? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">Your account is automatically closed and the challenge ends. You will need to purchase a new challenge to try again. The original challenge fee is not refunded if you breach a risk rule — only upon successful funding.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">How is the daily drawdown calculated? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">Daily drawdown is based on the balance at the start of each trading day (midnight server time, EAT+0). If your equity drops more than the daily limit below that starting balance at any point during the day — including on open floating positions — the limit is breached.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">When does the clock start on minimum trading days? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">A "trading day" is any day where you have at least one fully closed trade. Days where you only open positions (no closes) do not count. The counter starts from your first closed trade after account activation.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">Can I use an EA (automated trading bot)? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">Yes — EAs are allowed as long as they don't use martingale, grid doubling, or latency arbitrage. All trades must reflect genuine market analysis. We reserve the right to review any EA strategy if it raises compliance flags.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">What happens after I pass the challenge? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">Our team reviews your account within 24–48 hours. If all rules are met and trading is consistent, you receive your funded live account login credentials via email. You can then start trading real capital and request payouts.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">Is the challenge fee refunded? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">Yes — your challenge fee is fully refunded when you receive your first payout from your funded account. It is not refunded if you fail the challenge by breaching a risk rule.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">What payment methods are accepted for payouts? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">We pay out via M-Pesa (Kenya & East Africa), bank transfer, and USDT crypto (TRC-20). All payouts are processed within 48 hours of a valid request. You can choose your preferred method in your profile settings.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA BOTTOM -->
+<div class="cta-bottom">
+  <h2>Ready to Start Your Challenge?</h2>
+  <p>Pick a program, pay the fee, and begin trading. It's that simple. Your funded account is one challenge away.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+    <a href="signup.html" class="btn btn-gold" style="font-size:14px;padding:14px 32px;">Start a Challenge →</a>
+    <a href="index.html#contact" class="btn btn-outline" style="font-size:14px;padding:14px 32px;">Talk to Support</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>© 2026 Funded Baby. Trading involves significant risk.</div>
+  <div style="display:flex;gap:20px;">
+    <a href="#">Terms of Service</a>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Risk Disclaimer</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+  function switchProg(name, btn) {
+    document.querySelectorAll('.prog-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.prog-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('panel-' + name).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function selectSize(card) {
+    card.closest('.size-grid').querySelectorAll('.size-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+  }
+
+  function toggleFAQ(el) {
+    const item = el.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+</script>
+</body>
+</html>
