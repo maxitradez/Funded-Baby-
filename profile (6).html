@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My Profile — Funded Baby</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E4C76B;
+  --gold-dark: #A8882E;
+  --gold-dim: rgba(201,168,76,0.12);
+  --gold-glow: rgba(201,168,76,0.22);
+  --black: #080808;
+  --dark: #0d0d0d;
+  --darker: #0a0a0a;
+  --card: #111111;
+  --card2: #161616;
+  --border: rgba(201,168,76,0.2);
+  --border2: rgba(255,255,255,0.07);
+  --text: #F0EAD6;
+  --muted: #7a7060;
+  --green: #4ade80;
+  --red: #f87171;
+  --radius: 12px;
+  --radius-lg: 18px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:var(--black);color:var(--text);overflow-x:hidden;line-height:1.6;min-height:100vh;display:grid;grid-template-columns:240px 1fr;grid-template-rows:auto 1fr;}
+h1,h2,h3,h4{font-family:'Playfair Display',serif;}
+a{color:inherit;text-decoration:none;}
+
+/* TICKER */
+.ticker-wrap{grid-column:1/-1;background:#070707;border-bottom:1px solid var(--border);padding:9px 0;overflow:hidden;}
+.ticker{display:flex;gap:48px;animation:ticker 32s linear infinite;white-space:nowrap;width:max-content;}
+.ticker span{font-size:12px;letter-spacing:.04em;color:var(--muted);}
+.ticker span b{color:var(--text);font-weight:500;margin-right:4px;}
+.ticker span.up em{color:var(--green);font-style:normal;}
+.ticker span.dn em{color:var(--red);font-style:normal;}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* SIDEBAR */
+.sidebar{grid-row:2;background:var(--dark);border-right:1px solid var(--border2);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;}
+.sidebar-logo{padding:28px 24px 20px;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:12px;}
+.logo-mark{width:34px;height:34px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#080808;font-weight:800;font-family:'Inter',sans-serif;flex-shrink:0;}
+.logo-name{font-family:'Playfair Display',serif;font-weight:800;font-size:16px;color:var(--text);line-height:1.1;}
+.logo-name span{display:block;font-family:'Inter',sans-serif;font-size:9px;font-weight:400;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:2px;}
+
+.sidebar-user{padding:20px 24px;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:12px;}
+.user-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold-dark),var(--gold));display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:700;font-size:14px;color:#080808;flex-shrink:0;position:relative;}
+.user-avatar::after{content:'';position:absolute;bottom:1px;right:1px;width:9px;height:9px;background:var(--green);border-radius:50%;border:2px solid var(--dark);}
+.user-info .name{font-weight:600;font-size:13px;color:var(--text);}
+.user-info .tier{font-size:10px;color:var(--gold);background:var(--gold-dim);border:1px solid rgba(201,168,76,0.25);border-radius:4px;padding:2px 7px;display:inline-block;margin-top:3px;letter-spacing:.08em;text-transform:uppercase;font-family:'Inter',sans-serif;}
+
+.sidebar-nav{flex:1;padding:16px 0;}
+.nav-section{padding:8px 24px 4px;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-family:'Inter',sans-serif;opacity:.6;}
+.nav-item{display:flex;align-items:center;gap:12px;padding:10px 24px;color:var(--muted);font-size:13px;font-weight:500;cursor:pointer;transition:all .18s;border-left:2px solid transparent;text-decoration:none;font-family:'Inter',sans-serif;}
+.nav-item:hover{color:var(--text);background:rgba(255,255,255,0.03);}
+.nav-item.active{color:var(--gold-light);background:var(--gold-dim);border-left-color:var(--gold);}
+.nav-icon{width:16px;text-align:center;font-size:14px;}
+.nav-badge{margin-left:auto;background:var(--red);color:#fff;font-size:9px;font-weight:700;border-radius:10px;padding:2px 6px;}
+
+.sidebar-footer{padding:16px 24px;border-top:1px solid var(--border2);}
+.sidebar-footer a{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12px;text-decoration:none;padding:8px 0;transition:color .15s;font-family:'Inter',sans-serif;}
+.sidebar-footer a:hover{color:var(--text);}
+.sidebar-footer a.home-link{color:var(--gold-light);font-weight:600;}
+.sidebar-footer a.home-link:hover{color:var(--text);}
+
+/* MAIN */
+.main{grid-row:2;padding:36px 36px 56px;overflow-y:auto;display:flex;flex-direction:column;gap:28px;}
+
+/* HEADER */
+.page-header{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.page-header h1{font-size:28px;font-weight:800;color:var(--text);line-height:1;}
+.page-header .sub{font-size:12px;color:var(--muted);margin-top:5px;font-family:'Inter',sans-serif;}
+.header-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.btn{cursor:pointer;font-family:'Inter',sans-serif;border:none;border-radius:8px;font-size:13px;font-weight:500;padding:9px 18px;transition:all .2s;display:inline-flex;align-items:center;gap:6px;}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border2);}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold-light);}
+.btn-primary{background:var(--gold);color:#080808;font-weight:600;}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-1px);box-shadow:0 6px 24px var(--gold-glow);}
+.btn-home{background:transparent;color:var(--gold-light);border:1px solid var(--gold);font-weight:600;}
+.btn-home:hover{background:var(--gold);color:#080808;}
+.btn-red{background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.3);color:var(--red);}
+.btn-red:hover{background:rgba(248,113,113,0.2);}
+
+/* PROFILE HERO */
+.profile-hero{background:linear-gradient(135deg,#100e08,#111111);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;display:flex;align-items:center;gap:28px;position:relative;overflow:hidden;flex-wrap:wrap;}
+.profile-hero::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,0.07) 0%,transparent 70%);pointer-events:none;}
+.profile-avatar-lg{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--gold-dark),var(--gold));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:30px;color:#080808;flex-shrink:0;position:relative;border:3px solid rgba(201,168,76,0.3);box-shadow:0 0 30px rgba(201,168,76,0.12);}
+.online-dot{position:absolute;bottom:4px;right:4px;width:14px;height:14px;background:var(--green);border-radius:50%;border:3px solid var(--dark);}
+.hero-meta{flex:1;min-width:200px;}
+.hero-meta h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:var(--text);margin-bottom:4px;}
+.hero-email{font-size:12px;color:var(--muted);margin-bottom:12px;font-family:'Inter',sans-serif;}
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;}
+.badge{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:6px;border:1px solid;}
+.badge-gold{color:var(--gold-light);background:var(--gold-dim);border-color:rgba(201,168,76,0.3);}
+.badge-green{color:var(--green);background:rgba(74,222,128,0.08);border-color:rgba(74,222,128,0.25);}
+.badge-blue{color:#60a5fa;background:rgba(96,165,250,0.08);border-color:rgba(96,165,250,0.25);}
+.hero-actions{display:flex;flex-direction:column;gap:8px;align-items:flex-end;}
+
+/* GRID */
+.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.profile-grid .span2{grid-column:1/-1;}
+
+/* PANEL */
+.panel{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius-lg);overflow:hidden;}
+.panel-head{padding:18px 22px;border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between;}
+.panel-head h2{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--text);}
+.edit-btn{font-size:11px;color:var(--gold-light);cursor:pointer;font-family:'Inter',sans-serif;background:none;border:none;padding:4px 10px;border-radius:6px;transition:background .15s;font-weight:500;}
+.edit-btn:hover{background:var(--gold-dim);}
+
+/* INFO ROWS */
+.info-row{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;border-bottom:1px solid var(--border2);}
+.info-row:last-child{border-bottom:none;}
+.ir-label{font-size:12px;color:var(--muted);font-family:'Inter',sans-serif;}
+.ir-value{font-size:13px;font-weight:500;color:var(--text);font-family:'Inter',sans-serif;}
+.ir-value.verified{display:flex;align-items:center;gap:6px;color:var(--green);}
+.ir-value.verified::before{content:'✓';font-size:11px;}
+
+/* STAT GRID */
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border2);}
+.stat-cell{background:var(--card);padding:20px 22px;transition:background .15s;}
+.stat-cell:hover{background:var(--card2);}
+.sc-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-family:'Inter',sans-serif;margin-bottom:8px;}
+.sc-value{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--text);line-height:1;}
+.sc-sub{font-size:11px;color:var(--muted);margin-top:4px;font-family:'Inter',sans-serif;}
+.sc-value.green{color:var(--green);}
+.sc-value.gold{color:var(--gold-light);}
+
+/* ACCOUNTS */
+.accounts-list{padding:16px;display:flex;flex-direction:column;gap:12px;}
+.account-card{background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:16px 18px;display:flex;align-items:center;gap:16px;transition:border-color .18s;}
+.account-card:hover{border-color:var(--gold);}
+.account-card.active-card{border-color:rgba(74,222,128,0.3);}
+.ac-indicator{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.ac-indicator.green{background:var(--green);box-shadow:0 0 6px rgba(74,222,128,0.4);}
+.ac-indicator.gold{background:var(--gold);}
+.ac-indicator.grey{background:var(--muted);}
+.ac-body{flex:1;}
+.ac-name{font-size:13px;font-weight:600;color:var(--text);font-family:'Inter',sans-serif;}
+.ac-detail{font-size:11px;color:var(--muted);font-family:'Inter',sans-serif;margin-top:2px;}
+.ac-right{text-align:right;}
+.ac-balance{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--text);}
+.ac-pnl{font-size:11px;color:var(--green);font-family:'Inter',sans-serif;}
+.ac-pnl.neg{color:var(--red);}
+.empty-accounts{padding:32px;text-align:center;color:var(--muted);font-size:13px;font-family:'Inter',sans-serif;}
+.empty-accounts .icon{font-size:28px;margin-bottom:10px;opacity:.4;}
+
+/* PAYOUT HISTORY */
+.payout-row{display:flex;align-items:center;gap:14px;padding:14px 22px;border-bottom:1px solid var(--border2);transition:background .15s;}
+.payout-row:last-child{border-bottom:none;}
+.payout-row:hover{background:rgba(255,255,255,0.02);}
+.payout-icon{width:36px;height:36px;border-radius:8px;background:rgba(74,222,128,0.08);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.payout-icon.pending{background:var(--gold-dim);}
+.payout-body{flex:1;}
+.pb-title{font-size:13px;font-weight:500;color:var(--text);font-family:'Inter',sans-serif;}
+.pb-date{font-size:11px;color:var(--muted);font-family:'Inter',sans-serif;margin-top:2px;}
+.payout-amount{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--green);}
+.payout-status{font-family:'Inter',sans-serif;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:5px;}
+.payout-status.paid{color:var(--green);background:rgba(74,222,128,0.08);}
+.payout-status.pending{color:var(--gold-light);background:var(--gold-dim);}
+.empty-payouts{padding:32px;text-align:center;color:var(--muted);font-size:13px;font-family:'Inter',sans-serif;}
+.empty-payouts .icon{font-size:28px;margin-bottom:10px;opacity:.4;}
+
+/* SECURITY */
+.security-list{padding:8px 0;}
+.security-item{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--border2);transition:background .15s;}
+.security-item:last-child{border-bottom:none;}
+.security-item:hover{background:rgba(255,255,255,0.02);}
+.si-left{display:flex;align-items:center;gap:14px;}
+.si-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.si-icon.blue{background:rgba(96,165,250,0.1);}
+.si-icon.green{background:rgba(74,222,128,0.1);}
+.si-icon.gold{background:var(--gold-dim);}
+.si-icon.red{background:rgba(248,113,113,0.1);}
+.si-title{font-size:13px;font-weight:500;color:var(--text);font-family:'Inter',sans-serif;}
+.si-desc{font-size:11px;color:var(--muted);margin-top:2px;font-family:'Inter',sans-serif;}
+.toggle{position:relative;width:40px;height:22px;background:var(--muted);border-radius:11px;cursor:pointer;border:none;transition:background .2s;flex-shrink:0;opacity:.5;}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .2s;}
+.toggle.on{background:var(--green);opacity:1;}
+.toggle.on::after{transform:translateX(18px);}
+
+/* DANGER ZONE */
+.danger-zone{background:var(--card);border:1px solid rgba(248,113,113,0.2);border-radius:var(--radius-lg);padding:22px 24px;}
+.danger-zone h3{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--red);margin-bottom:6px;}
+.danger-zone p{font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.7;font-family:'Inter',sans-serif;font-weight:400;}
+.danger-zone .btn-row{display:flex;gap:10px;flex-wrap:wrap;}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.9);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:40px;width:100%;max-width:480px;position:relative;animation:slideUp .3s ease;}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:8px;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:'Inter',sans-serif;}
+.modal-close:hover{border-color:var(--gold);color:var(--gold-light);}
+.modal h2{font-size:22px;font-weight:800;margin-bottom:6px;}
+.modal .modal-sub{font-size:13px;color:var(--muted);margin-bottom:24px;font-weight:400;font-family:'Inter',sans-serif;}
+.form-group{margin-bottom:16px;}
+.form-group label{display:block;font-size:11px;color:var(--muted);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-family:'Inter',sans-serif;}
+.form-group input,.form-group select{width:100%;background:var(--card2);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Inter',sans-serif;font-size:14px;padding:12px 16px;outline:none;transition:border-color .2s;font-weight:400;}
+.form-group input:focus,.form-group select:focus{border-color:var(--gold);}
+.form-group input::placeholder{color:var(--muted);}
+.form-group select option{background:var(--card2);}
+.modal-actions{display:flex;gap:10px;margin-top:24px;}
+.modal-actions .btn{flex:1;padding:12px;font-size:13px;justify-content:center;}
+
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.2);border-radius:4px;}
+
+@media(max-width:1100px){body{grid-template-columns:200px 1fr;}.profile-grid{grid-template-columns:1fr;}}
+@media(max-width:768px){body{grid-template-columns:1fr;}.sidebar{display:none;}.main{padding:20px 16px;}.profile-hero{flex-direction:column;text-align:center;}.hero-badges{justify-content:center;}.hero-actions{flex-direction:row;}.stat-grid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker" id="tickerInner"></div>
+</div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">M</div>
+    <div class="logo-name">Funded Baby<span>Prop Trading Platform</span></div>
+  </div>
+  <div class="sidebar-user">
+    <div class="user-avatar" id="sidebarAvatar">—</div>
+    <div class="user-info">
+      <div class="name" id="sidebarName">Trader</div>
+      <div class="tier">Active</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section">Overview</div>
+    <a class="nav-item" href="dashboard.html"><span class="nav-icon">▦</span> Dashboard</a>
+    <a class="nav-item" href="#"><span class="nav-icon">📈</span> Trading Stats</a>
+    <a class="nav-item" href="#"><span class="nav-icon">⏱</span> Trade History</a>
+    <div class="nav-section" style="margin-top:8px">Account</div>
+    <a class="nav-item" href="#"><span class="nav-icon">💰</span> Payouts</a>
+    <a class="nav-item" href="#"><span class="nav-icon">📄</span> Certificates</a>
+    <a class="nav-item active" href="profile.html"><span class="nav-icon">👤</span> My Profile</a>
+    <div class="nav-section" style="margin-top:8px">Programs</div>
+    <a class="nav-item" href="index.html#programs"><span class="nav-icon">⚡</span> Buy Challenge</a>
+    <a class="nav-item" href="#"><span class="nav-icon">🏆</span> Leaderboard</a>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="index.html" class="home-link">🏠 Home</a>
+    <a href="#">⚙ Settings</a>
+    <a href="#">❓ Support</a>
+    <a href="https://wa.me/254718828633">💬 WhatsApp</a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <div class="page-header">
+    <div>
+      <h1>My Profile</h1>
+      <div class="sub">Manage your account, security, and trading identity</div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-home" onclick="window.location.href='index.html'">🏠 Home</button>
+      <button class="btn btn-ghost" onclick="window.location.href='dashboard.html'">← Dashboard</button>
+      <button class="btn btn-primary" onclick="openModal('editModal')">Edit Profile</button>
+    </div>
+  </div>
+
+  <!-- PROFILE HERO -->
+  <div class="profile-hero">
+    <div class="profile-avatar-lg" id="heroAvatar">
+      —<div class="online-dot"></div>
+    </div>
+    <div class="hero-meta">
+      <h2 id="heroName">Trader</h2>
+      <div class="hero-email" id="heroEmail">—</div>
+      <div class="hero-badges">
+        <span class="badge badge-gold" id="heroBadgePlan">No Active Plan</span>
+        <span class="badge badge-green" id="heroBadgeStatus">● New Member</span>
+        <span class="badge badge-blue" id="heroBadgeCountry">📍 —</span>
+        <span class="badge badge-gold" id="heroBadgeJoined">—</span>
+      </div>
+    </div>
+    <div class="hero-actions">
+      <button class="btn btn-ghost" onclick="openModal('editModal')">✏ Edit</button>
+      <button class="btn btn-ghost">📷 Photo</button>
+    </div>
+  </div>
+
+  <!-- TRADER STATS -->
+  <div class="panel">
+    <div class="panel-head"><h2>Trader Statistics</h2></div>
+    <div class="stat-grid">
+      <div class="stat-cell">
+        <div class="sc-label">Total Accounts</div>
+        <div class="sc-value gold">0</div>
+        <div class="sc-sub">No accounts yet</div>
+      </div>
+      <div class="stat-cell">
+        <div class="sc-label">Total Funded Capital</div>
+        <div class="sc-value">$0</div>
+        <div class="sc-sub">—</div>
+      </div>
+      <div class="stat-cell">
+        <div class="sc-label">Total Payouts Earned</div>
+        <div class="sc-value green">$0</div>
+        <div class="sc-sub">No payouts yet</div>
+      </div>
+      <div class="stat-cell">
+        <div class="sc-label">Best Challenge Progress</div>
+        <div class="sc-value green">0%</div>
+        <div class="sc-sub">—</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-grid">
+
+    <!-- PERSONAL INFO -->
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Personal Information</h2>
+        <button class="edit-btn" onclick="openModal('editModal')">Edit ✏</button>
+      </div>
+      <div class="info-row"><span class="ir-label">Full Name</span><span class="ir-value" id="infoName">—</span></div>
+      <div class="info-row"><span class="ir-label">Username</span><span class="ir-value" id="infoUsername">—</span></div>
+      <div class="info-row"><span class="ir-label">Email Address</span><span class="ir-value verified" id="infoEmail">—</span></div>
+      <div class="info-row"><span class="ir-label">Country</span><span class="ir-value" id="infoCountry">—</span></div>
+      <div class="info-row"><span class="ir-label">Phone / WhatsApp</span><span class="ir-value" id="infoPhone">—</span></div>
+      <div class="info-row"><span class="ir-label">Member Since</span><span class="ir-value" id="infoJoined">—</span></div>
+      <div class="info-row"><span class="ir-label">Account ID</span><span class="ir-value" style="color:var(--muted)" id="infoUID">—</span></div>
+    </div>
+
+    <!-- TRADING PREFERENCES -->
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Trading Preferences</h2>
+        <button class="edit-btn" onclick="openModal('prefModal')">Edit ✏</button>
+      </div>
+      <div class="info-row"><span class="ir-label">Trading Style</span><span class="ir-value">—</span></div>
+      <div class="info-row"><span class="ir-label">Preferred Instruments</span><span class="ir-value">—</span></div>
+      <div class="info-row"><span class="ir-label">Preferred Sessions</span><span class="ir-value">—</span></div>
+      <div class="info-row"><span class="ir-label">Avg. Daily Trades</span><span class="ir-value">—</span></div>
+      <div class="info-row"><span class="ir-label">Risk Per Trade</span><span class="ir-value">—</span></div>
+      <div class="info-row"><span class="ir-label">Trading Platform</span><span class="ir-value">—</span></div>
+    </div>
+
+    <!-- ACCOUNTS -->
+    <div class="panel span2">
+      <div class="panel-head">
+        <h2>My Challenge Accounts</h2>
+        <button class="btn btn-primary" style="font-size:11px;padding:6px 14px;" onclick="window.location.href='index.html#programs'">+ New Challenge</button>
+      </div>
+      <div class="accounts-list">
+        <div class="empty-accounts">
+          <div class="icon">📊</div>
+          No challenge accounts yet. Purchase a challenge to get started.
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYOUT HISTORY -->
+    <div class="panel span2">
+      <div class="panel-head">
+        <h2>Payout History</h2>
+        <a style="font-size:11px;color:var(--gold-light);font-family:'Inter',sans-serif;text-decoration:none;font-weight:500;" href="#">All Payouts →</a>
+      </div>
+      <div class="empty-payouts">
+        <div class="icon">💸</div>
+        No payouts yet. Complete a challenge phase to request your first payout.
+      </div>
+    </div>
+
+    <!-- SECURITY -->
+    <div class="panel span2">
+      <div class="panel-head"><h2>Security & Settings</h2></div>
+      <div class="security-list">
+        <div class="security-item">
+          <div class="si-left">
+            <div class="si-icon blue">🔑</div>
+            <div><div class="si-title">Password</div><div class="si-desc">Keep your account secure with a strong password</div></div>
+          </div>
+          <button class="btn btn-ghost" style="font-size:11px;padding:7px 14px;" onclick="openModal('pwModal')">Change Password</button>
+        </div>
+        <div class="security-item">
+          <div class="si-left">
+            <div class="si-icon green">🛡</div>
+            <div><div class="si-title">Two-Factor Authentication</div><div class="si-desc">Add an extra layer of security to your account</div></div>
+          </div>
+          <button class="toggle" onclick="this.classList.toggle('on')"></button>
+        </div>
+        <div class="security-item">
+          <div class="si-left">
+            <div class="si-icon gold">🔔</div>
+            <div><div class="si-title">Email Notifications</div><div class="si-desc">Trade confirmations, payouts, account updates</div></div>
+          </div>
+          <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+        </div>
+        <div class="security-item">
+          <div class="si-left">
+            <div class="si-icon blue">📱</div>
+            <div><div class="si-title">WhatsApp Alerts</div><div class="si-desc">Get notified on your phone for important events</div></div>
+          </div>
+          <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+        </div>
+        <div class="security-item">
+          <div class="si-left">
+            <div class="si-icon red">🚪</div>
+            <div><div class="si-title">Sign Out of All Devices</div><div class="si-desc">Revoke all active sessions immediately</div></div>
+          </div>
+          <button class="btn btn-ghost" style="font-size:11px;padding:7px 14px;color:var(--red);border-color:rgba(248,113,113,0.3);">Sign Out All</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DANGER ZONE -->
+  <div class="danger-zone">
+    <h3>⚠ Danger Zone</h3>
+    <p>These actions are irreversible. Account deletion removes all your trading history and payouts permanently.</p>
+    <div class="btn-row">
+      <button class="btn btn-red">Deactivate Account</button>
+      <button class="btn btn-red">Delete Account Permanently</button>
+    </div>
+  </div>
+
+</main>
+
+<!-- EDIT PROFILE MODAL -->
+<div class="modal-overlay" id="editModal" onclick="if(event.target===this)closeModal('editModal')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('editModal')">✕</button>
+    <h2>Edit Profile</h2>
+    <p class="modal-sub">Update your personal information below.</p>
+    <div class="form-group"><label>Full Name</label><input type="text" id="editName" placeholder="Your full name"/></div>
+    <div class="form-group"><label>Username</label><input type="text" id="editUsername" placeholder="@yourhandle"/></div>
+    <div class="form-group"><label>WhatsApp / Phone</label><input type="tel" id="editPhone" placeholder="+254 7XX XXX XXX"/></div>
+    <div class="form-group">
+      <label>Country</label>
+      <select id="editCountry">
+        <option value="">Select your country...</option>
+        <option>Kenya</option><option>Nigeria</option><option>South Africa</option>
+        <option>Ghana</option><option>Uganda</option><option>Tanzania</option>
+        <option>United States</option><option>United Kingdom</option><option>Other</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('editModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHANGE PASSWORD MODAL -->
+<div class="modal-overlay" id="pwModal" onclick="if(event.target===this)closeModal('pwModal')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('pwModal')">✕</button>
+    <h2>Change Password</h2>
+    <p class="modal-sub">Enter your current password and choose a new one.</p>
+    <div class="form-group"><label>Current Password</label><input type="password" placeholder="••••••••"/></div>
+    <div class="form-group"><label>New Password</label><input type="password" placeholder="Min. 8 characters"/></div>
+    <div class="form-group"><label>Confirm New Password</label><input type="password" placeholder="Repeat new password"/></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('pwModal')">Cancel</button>
+      <button class="btn btn-primary">Update Password</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Ticker
+  const ticks = [
+    {sym:'EURUSD',val:'1.0847',chg:'+0.23%',up:true},
+    {sym:'GBPUSD',val:'1.2634',chg:'-0.11%',up:false},
+    {sym:'XAUUSD',val:'2,341',chg:'+0.87%',up:true},
+    {sym:'USDJPY',val:'149.32',chg:'-0.18%',up:false},
+    {sym:'BTCUSD',val:'67,420',chg:'+2.14%',up:true},
+    {sym:'NAS100',val:'18,342',chg:'+0.56%',up:true},
+    {sym:'USDCAD',val:'1.3621',chg:'-0.08%',up:false},
+    {sym:'AUDUSD',val:'0.6598',chg:'+0.31%',up:true},
+  ];
+  const ti = document.getElementById('tickerInner');
+  ti.innerHTML = [...ticks,...ticks].map(t =>
+    `<span class="${t.up?'up':'dn'}"><b>${t.sym}</b>${t.val} <em>${t.chg}</em></span>`
+  ).join('');
+
+  function openModal(id){document.getElementById(id).classList.add('open');}
+  function closeModal(id){document.getElementById(id).classList.remove('open');}
+
+  function saveProfile(){
+    const name    = document.getElementById('editName').value.trim();
+    const uname   = document.getElementById('editUsername').value.trim();
+    const phone   = document.getElementById('editPhone').value.trim();
+    const country = document.getElementById('editCountry').value;
+    const flags   = {Kenya:'🇰🇪',Nigeria:'🇳🇬','South Africa':'🇿🇦',Ghana:'🇬🇭',Uganda:'🇺🇬',Tanzania:'🇹🇿','United States':'🇺🇸','United Kingdom':'🇬🇧',Other:'🌍'};
+    if(name){
+      document.getElementById('heroName').textContent = name;
+      document.getElementById('infoName').textContent = name;
+      const initials = name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
+      document.getElementById('heroAvatar').childNodes[0].textContent = initials;
+      document.getElementById('sidebarAvatar').textContent = initials;
+      document.getElementById('sidebarName').textContent = name.split(' ')[0];
+    }
+    if(uname) document.getElementById('infoUsername').textContent = uname;
+    if(phone) document.getElementById('infoPhone').textContent = phone;
+    if(country){
+      document.getElementById('infoCountry').textContent = (flags[country]||'🌍')+' '+country;
+      document.getElementById('heroBadgeCountry').textContent = '📍 '+country;
+    }
+    closeModal('editModal');
+  }
+</script>
+</body>
+</html>
